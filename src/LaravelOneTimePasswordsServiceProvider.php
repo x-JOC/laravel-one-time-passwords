@@ -2,9 +2,9 @@
 
 namespace Spatie\LaravelOneTimePasswords;
 
+use Spatie\LaravelOneTimePasswords\Commands\LaravelOneTimePasswordsCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Spatie\LaravelOneTimePasswords\Commands\LaravelOneTimePasswordsCommand;
 
 class LaravelOneTimePasswordsServiceProvider extends PackageServiceProvider
 {
