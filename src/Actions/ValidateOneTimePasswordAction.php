@@ -14,15 +14,10 @@ use Spatie\LaravelOneTimePasswords\Models\OneTimePassword;
 class ValidateOneTimePasswordAction
 {
     public function __construct(
-        protected VerifyRequestPropertiesAction $verifyRequestPropertiesAction)
-    {}
+        protected VerifyRequestPropertiesAction $verifyRequestPropertiesAction) {}
 
     /**
-     * @param Authenticatable&HasOneTimePasswords $user
-     * @param string $password
-     * @param Request $request
-     *
-     * @return ValidateOneTimePasswordResult
+     * @param  Authenticatable&HasOneTimePasswords  $user
      */
     public function execute(
         Authenticatable $user,
@@ -68,8 +63,7 @@ class ValidateOneTimePasswordAction
     }
 
     /**
-     * @param Authenticatable&HasOneTimePasswords $user
-     *
+     * @param  Authenticatable&HasOneTimePasswords  $user
      * @return Collection<OneTimePassword>
      */
     protected function getAllOneTimePasswordsForUser(Authenticatable $user): Collection
@@ -80,8 +74,7 @@ class ValidateOneTimePasswordAction
     protected function validateRequestProperties(
         OneTimePassword $oneTimePassword,
         Request $request,
-    ): bool
-    {
+    ): bool {
         if ($request->userAgent() !== $oneTimePassword->request_properties['userAgent']) {
             return false;
         }

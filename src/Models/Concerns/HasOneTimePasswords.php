@@ -18,9 +18,6 @@ trait HasOneTimePasswords
 
     /**
      * Create a new one-time password for this model.
-     *
-     * @param  int  $expiresInMinutes
-     * @return \App\Models\OneTimePassword
      */
     public function createOneTimePassword(int $expiresInMinutes = 10): OneTimePassword
     {
@@ -29,9 +26,6 @@ trait HasOneTimePasswords
 
     /**
      * Verify a one-time password for this model.
-     *
-     * @param  string  $password
-     * @return bool
      */
     public function verifyOneTimePassword(string $password): bool
     {
@@ -45,9 +39,6 @@ trait HasOneTimePasswords
 
     /**
      * Consume a one-time password, verifying it and deleting it if valid.
-     *
-     * @param  string  $password
-     * @return bool
      */
     public function consumeOneTimePassword(string $password): bool
     {
@@ -58,11 +49,10 @@ trait HasOneTimePasswords
 
         if ($otp !== null) {
             $otp->delete();
+
             return true;
         }
 
         return false;
     }
-
-
 }

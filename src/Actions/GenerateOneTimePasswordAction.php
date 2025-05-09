@@ -12,20 +12,13 @@ use Spatie\LaravelOneTimePasswords\Models\OneTimePassword;
 class GenerateOneTimePasswordAction
 {
     public function __construct(
-        protected GatherRequestPropertiesAction $gatherRequestProperties)
-    {
-    }
+        protected GatherRequestPropertiesAction $gatherRequestProperties) {}
 
     /**
-     * @param Authenticatable&HasOneTimePasswords $user
-     * @param int|null $expiresInMinutes
-     * @param \Illuminate\Http\Request|null $request
-     *
-     * @return OneTimePassword
+     * @param  Authenticatable&HasOneTimePasswords  $user
      */
     public function execute(
-        Authenticatable
- $user,
+        Authenticatable $user,
         ?int $expiresInMinutes = null,
         ?Request $request = null
     ): OneTimePassword {
