@@ -5,16 +5,16 @@ namespace Spatie\LaravelOneTimePasswords\Actions;
 use Carbon\Carbon;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Spatie\LaravelOneTimePasswords\Models\Concerns\HasOneTimePasswords;
 use Spatie\LaravelOneTimePasswords\Models\OneTimePassword;
+use Spatie\LaravelOneTimePasswords\PasswordGenerators\OneTimePasswordGenerator;
 
 class GenerateOneTimePasswordAction
 {
     public function __construct(
-        protected GatherRequestPropertiesAction $gatherRequestProperties)
-    {
-    }
+        protected GatherRequestPropertiesAction $gatherRequestProperties,
+        protected OneTimePasswordGenerator $passwordGenerator,
+    ) {}
 
     /**
      * @param Authenticatable&HasOneTimePasswords $user
@@ -32,7 +32,7 @@ class GenerateOneTimePasswordAction
         $expiresInMinutes = $expiresInMinutes ?? config('one-time-passwords.default_expires_in_minutes');
 
         return $user->oneTimePasswords()->create([
-            'password' => Str::random(6),
+            'password' => $this->passwordGenerator->generate(),
             'expires_at' => Carbon::now()->addMinutes($expiresInMinutes),
             'request_properties' => $this->gatherRequestProperties->execute($request ?? request()),
         ]);

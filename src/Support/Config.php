@@ -38,11 +38,11 @@ class Config
 
     public static function getActionClass(string $actionName, string $actionBaseClass): string
     {
-        $actionClass = config("one-time-password.actions.{$actionName}");
+        $actionClass = config("one-time-passwords.actions.{$actionName}");
 
         self::ensureValidActionClass($actionName, $actionBaseClass, $actionClass);
 
-        return config("passkeys.actions.{$actionName}");
+        return $actionClass;
     }
 
     protected static function ensureValidActionClass(string $actionName, string $actionBaseClass, string $actionClass): void

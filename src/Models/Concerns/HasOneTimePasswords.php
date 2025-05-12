@@ -1,14 +1,24 @@
 <?php
 
 namespace Spatie\LaravelOneTimePasswords\Models\Concerns;
-
-use App\Models\OneTimePassword;
+use Illuminate\Http\Request;
+use Spatie\LaravelOneTimePasswords\Actions\ConsumeOneTimePasswordAction;
+use Spatie\LaravelOneTimePasswords\Actions\GenerateOneTimePasswordAction;
+use Spatie\LaravelOneTimePasswords\Enums\ValidateOneTimePasswordResult;
+use Spatie\LaravelOneTimePasswords\Models\OneTimePassword;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Spatie\LaravelOneTimePasswords\Support\Config;
+use Illuminate\Database\Eloquent\Model;
+use Spatie\LaravelOneTimePasswords\Exceptions\InvalidConfig;
+use Illuminate\Contracts\Auth\Authenticatable;
 
-/** @mixin \Illuminate\Database\Eloquent\Model */
+/** @mixin Model&Authenticatable */
 trait HasOneTimePasswords
 {
+    /**
+     * @return MorphMany<OneTimePassword, Model>
+     * @throws InvalidConfig
+     */
     public function oneTimePasswords(): MorphMany
     {
         $modelClass = Config::oneTimePasswordModel();
@@ -16,53 +26,19 @@ trait HasOneTimePasswords
         return $this->morphMany($modelClass, 'authenticatable');
     }
 
-    /**
-     * Create a new one-time password for this model.
-     *
-     * @param  int  $expiresInMinutes
-     * @return \App\Models\OneTimePassword
-     */
-    public function createOneTimePassword(int $expiresInMinutes = 10): OneTimePassword
+    public function createOneTimePassword(?int $expiresInMinutes = null): OneTimePassword
     {
-        return OneTimePassword::generateFor($this, $expiresInMinutes);
+        $action = Config::getAction('generate_one_time_password', GenerateOneTimePasswordAction::class);
+
+        $expiresInMinutes = $expiresInMinutes ?? config('one-time-passwords.default_expires_in_minutes');
+
+        return $action->execute($this, $expiresInMinutes);
     }
 
-    /**
-     * Verify a one-time password for this model.
-     *
-     * @param  string  $password
-     * @return bool
-     */
-    public function verifyOneTimePassword(string $password): bool
+    public function consumeOneTimePassword(string $password): ValidateOneTimePasswordResult
     {
-        $otp = $this->oneTimePasswords()
-            ->where('password', $password)
-            ->where('expires_at', '>', now())
-            ->first();
+        $action = Config::getAction('consume_one_time_password', ConsumeOneTimePasswordAction::class);
 
-        return $otp !== null;
+        return $action->execute($this, $password, request());
     }
-
-    /**
-     * Consume a one-time password, verifying it and deleting it if valid.
-     *
-     * @param  string  $password
-     * @return bool
-     */
-    public function consumeOneTimePassword(string $password): bool
-    {
-        $otp = $this->oneTimePasswords()
-            ->where('password', $password)
-            ->where('expires_at', '>', now())
-            ->first();
-
-        if ($otp !== null) {
-            $otp->delete();
-            return true;
-        }
-
-        return false;
-    }
-
-
 }

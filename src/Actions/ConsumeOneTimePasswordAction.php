@@ -11,7 +11,7 @@ use Spatie\LaravelOneTimePasswords\Events\OneTimePasswordSuccessfullyValidated;
 use Spatie\LaravelOneTimePasswords\Models\Concerns\HasOneTimePasswords;
 use Spatie\LaravelOneTimePasswords\Models\OneTimePassword;
 
-class ValidateOneTimePasswordAction
+class ConsumeOneTimePasswordAction
 {
     public function __construct(
         protected VerifyRequestPropertiesAction $verifyRequestPropertiesAction)
