@@ -13,9 +13,24 @@ return [
     'only_one_active_one_time_password_per_user' => true,
 
     /*
+     * When this option is active, we'll try to ensure that the one time password can only
+     * be consumed on the platform where it was requested on
+     */
+    'enforce_same_origin' => true,
+
+    /*
+     * This class is responsible to enforce that the one time password can only be consumed on
+     * the platform it was requested on.
+     *
+     * If you do not wish to enforce this, set this value to
+     * Spatie\LaravelOneTimePasswords\Support\OriginInspector\DoNotEnforceOrigin
+     */
+    'origin_enforcer' => Spatie\LaravelOneTimePasswords\Support\OriginInspector\DefaultOriginEnforcer::class,
+
+    /*
      * This class generates a random password
      */
-    'password_generator' => Spatie\LaravelOneTimePasswords\PasswordGenerators\NumericOneTimePasswordGenerator::class,
+    'password_generator' => Spatie\LaravelOneTimePasswords\Support\PasswordGenerators\NumericOneTimePasswordGenerator::class,
 
     /*
      * By default, the password generator will create a password with
@@ -34,9 +49,7 @@ return [
      * by specifying your custom class name here.
      */
     'actions' => [
-        'gather_request_properties' => Spatie\LaravelOneTimePasswords\Actions\GatherRequestPropertiesAction::class,
-        'generate_one_time_password' => Spatie\LaravelOneTimePasswords\Actions\GenerateOneTimePasswordAction::class,
-        'verify_request_properties' => Spatie\LaravelOneTimePasswords\Actions\VerifyRequestPropertiesAction::class,
+        'create_one_time_password' => Spatie\LaravelOneTimePasswords\Actions\CreateOneTimePasswordAction::class,
         'consume_one_time_password' => Spatie\LaravelOneTimePasswords\Actions\ConsumeOneTimePasswordAction::class,
     ],
 ];

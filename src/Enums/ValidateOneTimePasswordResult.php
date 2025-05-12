@@ -7,7 +7,7 @@ enum ValidateOneTimePasswordResult: string
     case Ok = 'ok';
     case NoOneTimePasswordsFound = 'no_one_time_passwords_found';
     case IncorrectOneTimePassword = 'incorrect_one_time_password';
-    case RequestDidNotMatch = 'request_did_not_match';
+    case DifferentOrigin = 'different_origin';
     case OneTimePasswordExpired = 'one_time_password_expired';
 
     public function isOk(): bool

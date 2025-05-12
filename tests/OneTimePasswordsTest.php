@@ -1,15 +1,17 @@
 <?php
 
 use Spatie\LaravelOneTimePasswords\Enums\ValidateOneTimePasswordResult;
+use Spatie\LaravelOneTimePasswords\Support\OriginInspector\DoNotEnforceOrigin;
+use Spatie\LaravelOneTimePasswords\Support\OriginInspector\OriginEnforcer;
 use Spatie\LaravelOneTimePasswords\Tests\TestSupport\Models\User;
 
-beforeEach(function() {
+beforeEach(function () {
 
 
     /** @var $user User */
-   $user = User::factory()->create();
+    $user = User::factory()->create();
 
-   $this->user = $user;
+    $this->user = $user;
 });
 
 it('can create a one time password', function () {
@@ -20,18 +22,18 @@ it('can create a one time password', function () {
     $oneTimePassword = $this->user->oneTimePasswords->first();
 
     expect($oneTimePassword->password)->toHaveLength(config('one-time-passwords.password_length'));
-    expect($oneTimePassword->request_properties)->toHaveKeys(['ip', 'userAgent']);
+    expect($oneTimePassword->origin_properties)->toHaveKeys(['ip', 'userAgent']);
 
     $expectedExpiresAt = now()->addMinutes(config('one-time-passwords.default_expires_in_minutes'))->toDateTimeString();
     expect($oneTimePassword->expires_at->toDateTimeString())->toBe($expectedExpiresAt);
 });
 
 it('can consume a one time password', function () {
-   $oneTimePassword = $this->user->createOneTimePassword();
+    $oneTimePassword = $this->user->createOneTimePassword();
 
-   $result = $this->user->consumeOneTimePassword($oneTimePassword->password);
+    $result = $this->user->consumeOneTimePassword($oneTimePassword->password);
 
-   expect($result)->toBe(ValidateOneTimePasswordResult::Ok);
+    expect($result)->toBe(ValidateOneTimePasswordResult::Ok);
 });
 
 it('will not return ok for a wrong password', function () {
@@ -62,10 +64,46 @@ it('will not work again if it has already been consumed', function () {
 
     $result = $this->user->consumeOneTimePassword($oneTimePassword->password);
     expect($result)->toBe(ValidateOneTimePasswordResult::Ok);
-    expect($this->user->oneTimePasswords)->toHaveCount(0);
+    expect($this->user->refresh()->oneTimePasswords)->toHaveCount(0);
 
     $result = $this->user->consumeOneTimePassword($oneTimePassword->password);
     expect($result)->toBe(ValidateOneTimePasswordResult::NoOneTimePasswordsFound);
 });
 
+it('old one time passwords will not work anymore when a new one is created', function () {
+    $oldOneTimePassword = $this->user->createOneTimePassword();
+    $newOneTimePassword = $this->user->createOneTimePassword();
+
+    $resultForOldOneTimePassword = $this->user->consumeOneTimePassword($oldOneTimePassword->password);
+
+    $resultForNewOneTimePassword = $this->user->consumeOneTimePassword($newOneTimePassword->password);
+
+    expect($resultForOldOneTimePassword)->toBe(ValidateOneTimePasswordResult::IncorrectOneTimePassword);
+    expect($resultForNewOneTimePassword)->toBe(ValidateOneTimePasswordResult::Ok);
+
+});
+
+it('will enforce the origin by default', function () {
+    $oneTimePassword = $this->user->createOneTimePassword();
+
+    $oneTimePassword->update([
+        'origin_properties' => array_merge($oneTimePassword->origin_properties, ['userAgent' => 'some-other-user-agent'])
+    ]);
+
+    $result = $this->user->consumeOneTimePassword($oneTimePassword->password);
+    expect($result)->toBe(ValidateOneTimePasswordResult::DifferentOrigin);
+});
+
+it('has an inspector that does not enforce origin', function () {
+    updateConfig('one-time-passwords.origin_enforcer', DoNotEnforceOrigin::class);
+
+    $oneTimePassword = $this->user->createOneTimePassword();
+
+    $oneTimePassword->update([
+        'origin_properties' => array_merge($oneTimePassword->origin_properties, ['userAgent' => 'some-other-user-agent'])
+    ]);
+
+    $result = $this->user->consumeOneTimePassword($oneTimePassword->password);
+    expect($result)->toBe(ValidateOneTimePasswordResult::Ok);
+});
 

@@ -18,7 +18,7 @@ class OneTimePassword extends Model
     public function casts()
     {
         return [
-            'request_properties' => 'array',
+            'origin_properties' => 'array',
             'expires_at' => 'datetime'
         ];
     }

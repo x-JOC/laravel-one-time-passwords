@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\LaravelOneTimePasswords\PasswordGenerators;
+namespace Spatie\LaravelOneTimePasswords\Support\PasswordGenerators;
 
 interface OneTimePasswordGenerator
 {

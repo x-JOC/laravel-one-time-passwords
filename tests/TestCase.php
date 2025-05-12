@@ -47,4 +47,11 @@ class TestCase extends Orchestra
             $table->softDeletes();
         });
     }
+
+    public function updateConfig(string $key, mixed $value)
+    {
+        config()->set($key, $value);
+
+        new OneTimePasswordsServiceProvider($this->app)->packageRegistered();
+    }
 }

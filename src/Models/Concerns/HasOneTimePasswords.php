@@ -3,7 +3,7 @@
 namespace Spatie\LaravelOneTimePasswords\Models\Concerns;
 use Illuminate\Http\Request;
 use Spatie\LaravelOneTimePasswords\Actions\ConsumeOneTimePasswordAction;
-use Spatie\LaravelOneTimePasswords\Actions\GenerateOneTimePasswordAction;
+use Spatie\LaravelOneTimePasswords\Actions\CreateOneTimePasswordAction;
 use Spatie\LaravelOneTimePasswords\Enums\ValidateOneTimePasswordResult;
 use Spatie\LaravelOneTimePasswords\Models\OneTimePassword;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -28,7 +28,7 @@ trait HasOneTimePasswords
 
     public function createOneTimePassword(?int $expiresInMinutes = null): OneTimePassword
     {
-        $action = Config::getAction('generate_one_time_password', GenerateOneTimePasswordAction::class);
+        $action = Config::getAction('create_one_time_password', CreateOneTimePasswordAction::class);
 
         $expiresInMinutes = $expiresInMinutes ?? config('one-time-passwords.default_expires_in_minutes');
 

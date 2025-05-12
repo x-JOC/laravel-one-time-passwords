@@ -10,11 +10,13 @@ use Spatie\LaravelOneTimePasswords\Events\FailedToValidateOneTimePassword;
 use Spatie\LaravelOneTimePasswords\Events\OneTimePasswordSuccessfullyValidated;
 use Spatie\LaravelOneTimePasswords\Models\Concerns\HasOneTimePasswords;
 use Spatie\LaravelOneTimePasswords\Models\OneTimePassword;
+use Spatie\LaravelOneTimePasswords\Support\OriginInspector\OriginEnforcer;
 
 class ConsumeOneTimePasswordAction
 {
     public function __construct(
-        protected VerifyRequestPropertiesAction $verifyRequestPropertiesAction)
+        protected OriginEnforcer $originEnforcer,
+    )
     {}
 
     /**
@@ -51,15 +53,15 @@ class ConsumeOneTimePasswordAction
             return ValidateOneTimePasswordResult::OneTimePasswordExpired;
         }
 
-        $requestPropertiesAreValid = $this->verifyRequestPropertiesAction->execute(
+        $originPropertiesAreValid = $this->originEnforcer->verifyProperties(
             $oneTimePassword,
             $request,
         );
 
-        if (! $requestPropertiesAreValid) {
-            $this->onFailedToValidate($user, ValidateOneTimePasswordResult::RequestDidNotMatch);
+        if (! $originPropertiesAreValid) {
+            $this->onFailedToValidate($user, ValidateOneTimePasswordResult::DifferentOrigin);
 
-            return ValidateOneTimePasswordResult::RequestDidNotMatch;
+            return ValidateOneTimePasswordResult::DifferentOrigin;
         }
 
         $this->onSuccessfullyValidated($user, $oneTimePassword);
@@ -82,11 +84,11 @@ class ConsumeOneTimePasswordAction
         Request $request,
     ): bool
     {
-        if ($request->userAgent() !== $oneTimePassword->request_properties['userAgent']) {
+        if ($request->userAgent() !== $oneTimePassword->origin_properties['userAgent']) {
             return false;
         }
 
-        if ($request->ip() !== $oneTimePassword->request_properties['ip']) {
+        if ($request->ip() !== $oneTimePassword->origin_properties['ip']) {
             return false;
         }
 
