@@ -58,9 +58,11 @@ it('will not return ok for a expired password', function (int $numberOfMinutes, 
 
 it('will not work again if it has already been consumed', function () {
     $oneTimePassword = $this->user->createOneTimePassword();
+    expect($this->user->oneTimePasswords)->toHaveCount(1);
 
     $result = $this->user->consumeOneTimePassword($oneTimePassword->password);
     expect($result)->toBe(ValidateOneTimePasswordResult::Ok);
+    expect($this->user->oneTimePasswords)->toHaveCount(0);
 
     $result = $this->user->consumeOneTimePassword($oneTimePassword->password);
     expect($result)->toBe(ValidateOneTimePasswordResult::NoOneTimePasswordsFound);
