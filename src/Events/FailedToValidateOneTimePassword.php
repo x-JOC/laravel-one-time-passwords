@@ -10,8 +10,5 @@ class FailedToValidateOneTimePassword
     public function __construct(
         public readonly Authenticatable $user,
         public readonly ValidateOneTimePasswordResult $validationResult,
-    )
-    {
-
-    }
+    ) {}
 }

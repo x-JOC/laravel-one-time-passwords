@@ -10,8 +10,5 @@ class OneTimePasswordSuccessfullyValidated
     public function __construct(
         protected readonly Authenticatable $user,
         protected readonly OneTimePassword $oneTimePassword,
-    )
-    {
-
-    }
+    ) {}
 }
