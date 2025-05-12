@@ -16,15 +16,10 @@ class ConsumeOneTimePasswordAction
 {
     public function __construct(
         protected OriginEnforcer $originEnforcer,
-    )
-    {}
+    ) {}
 
     /**
-     * @param Authenticatable&HasOneTimePasswords $user
-     * @param string $password
-     * @param Request $request
-     *
-     * @return ValidateOneTimePasswordResult
+     * @param  Authenticatable&HasOneTimePasswords  $user
      */
     public function execute(
         Authenticatable $user,
@@ -70,8 +65,7 @@ class ConsumeOneTimePasswordAction
     }
 
     /**
-     * @param Authenticatable&HasOneTimePasswords $user
-     *
+     * @param  Authenticatable&HasOneTimePasswords  $user
      * @return Collection<OneTimePassword>
      */
     protected function getAllOneTimePasswordsForUser(Authenticatable $user): Collection
@@ -82,8 +76,7 @@ class ConsumeOneTimePasswordAction
     protected function validateRequestProperties(
         OneTimePassword $oneTimePassword,
         Request $request,
-    ): bool
-    {
+    ): bool {
         if ($request->userAgent() !== $oneTimePassword->origin_properties['userAgent']) {
             return false;
         }

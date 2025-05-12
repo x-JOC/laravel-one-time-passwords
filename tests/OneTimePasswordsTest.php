@@ -2,11 +2,9 @@
 
 use Spatie\LaravelOneTimePasswords\Enums\ValidateOneTimePasswordResult;
 use Spatie\LaravelOneTimePasswords\Support\OriginInspector\DoNotEnforceOrigin;
-use Spatie\LaravelOneTimePasswords\Support\OriginInspector\OriginEnforcer;
 use Spatie\LaravelOneTimePasswords\Tests\TestSupport\Models\User;
 
 beforeEach(function () {
-
 
     /** @var $user User */
     $user = User::factory()->create();
@@ -87,7 +85,7 @@ it('will enforce the origin by default', function () {
     $oneTimePassword = $this->user->createOneTimePassword();
 
     $oneTimePassword->update([
-        'origin_properties' => array_merge($oneTimePassword->origin_properties, ['userAgent' => 'some-other-user-agent'])
+        'origin_properties' => array_merge($oneTimePassword->origin_properties, ['userAgent' => 'some-other-user-agent']),
     ]);
 
     $result = $this->user->consumeOneTimePassword($oneTimePassword->password);
@@ -100,10 +98,9 @@ it('has an inspector that does not enforce origin', function () {
     $oneTimePassword = $this->user->createOneTimePassword();
 
     $oneTimePassword->update([
-        'origin_properties' => array_merge($oneTimePassword->origin_properties, ['userAgent' => 'some-other-user-agent'])
+        'origin_properties' => array_merge($oneTimePassword->origin_properties, ['userAgent' => 'some-other-user-agent']),
     ]);
 
     $result = $this->user->consumeOneTimePassword($oneTimePassword->password);
     expect($result)->toBe(ValidateOneTimePasswordResult::Ok);
 });
-

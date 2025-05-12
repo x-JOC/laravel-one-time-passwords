@@ -7,6 +7,6 @@ use Spatie\LaravelOneTimePasswords\Models\Concerns\HasOneTimePasswords;
 
 class User extends \Illuminate\Foundation\Auth\User
 {
-    use HasOneTimePasswords;
     use HasFactory;
+    use HasOneTimePasswords;
 }

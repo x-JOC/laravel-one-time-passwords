@@ -1,22 +1,23 @@
 <?php
 
 namespace Spatie\LaravelOneTimePasswords\Models\Concerns;
-use Illuminate\Http\Request;
+
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Spatie\LaravelOneTimePasswords\Actions\ConsumeOneTimePasswordAction;
 use Spatie\LaravelOneTimePasswords\Actions\CreateOneTimePasswordAction;
 use Spatie\LaravelOneTimePasswords\Enums\ValidateOneTimePasswordResult;
-use Spatie\LaravelOneTimePasswords\Models\OneTimePassword;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Spatie\LaravelOneTimePasswords\Support\Config;
-use Illuminate\Database\Eloquent\Model;
 use Spatie\LaravelOneTimePasswords\Exceptions\InvalidConfig;
-use Illuminate\Contracts\Auth\Authenticatable;
+use Spatie\LaravelOneTimePasswords\Models\OneTimePassword;
+use Spatie\LaravelOneTimePasswords\Support\Config;
 
 /** @mixin Model&Authenticatable */
 trait HasOneTimePasswords
 {
     /**
      * @return MorphMany<OneTimePassword, Model>
+     *
      * @throws InvalidConfig
      */
     public function oneTimePasswords(): MorphMany
