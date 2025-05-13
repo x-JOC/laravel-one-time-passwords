@@ -13,9 +13,7 @@ class OneTimePasswordNotification extends Notification
 
     use Queueable;
 
-    public function __construct(protected OneTimePassword $oneTimePassword) {
-
-    }
+    public function __construct(protected OneTimePassword $oneTimePassword) {}
 
     public function toMail()
     {
