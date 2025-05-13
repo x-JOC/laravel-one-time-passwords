@@ -68,7 +68,7 @@ it('will not work again if it has already been consumed', function () {
     expect($result)->toBe(ConsumeOneTimePasswordResult::NoOneTimePasswordsFound);
 });
 
-it('old one time passwords will not work anymore when a new one is created', function () {
+it('will not accept old one time passwords anymore when a new one is created', function () {
     $oldOneTimePassword = $this->user->createOneTimePassword();
     $newOneTimePassword = $this->user->createOneTimePassword();
 
