@@ -18,7 +18,7 @@ class SubmitOneTimePasswordComponent extends Component
     {
         $this->redirectTo = $redirectTo
             ?? config('one-time-passwords.redirect_successful_authentication_to');
-    },
+    }
 
     public function rules(): array
     {
