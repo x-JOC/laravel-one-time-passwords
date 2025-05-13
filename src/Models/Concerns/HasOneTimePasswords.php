@@ -10,6 +10,7 @@ use Spatie\LaravelOneTimePasswords\Actions\CreateOneTimePasswordAction;
 use Spatie\LaravelOneTimePasswords\Enums\ConsumeOneTimePasswordResult;
 use Spatie\LaravelOneTimePasswords\Exceptions\InvalidConfig;
 use Spatie\LaravelOneTimePasswords\Models\OneTimePassword;
+use Spatie\LaravelOneTimePasswords\Notifications\OneTimePasswordNotification;
 use Spatie\LaravelOneTimePasswords\Support\Config;
 
 /** @mixin Model&Authenticatable */
@@ -39,6 +40,15 @@ trait HasOneTimePasswords
         $expiresInMinutes = $expiresInMinutes ?? config('one-time-passwords.default_expires_in_minutes');
 
         return $action->execute($this, $expiresInMinutes);
+    }
+
+    public function sendOneTimePassword(?int $expiresInMinutes = null): self
+    {
+        $oneTimePassword = $this->createOneTimePassword($expiresInMinutes);
+
+        $this->notify(new OneTimePasswordNotification($oneTimePassword));
+
+        return $this;
     }
 
     public function consumeOneTimePassword(string $password): ConsumeOneTimePasswordResult

@@ -2,6 +2,8 @@
 
 namespace Spatie\LaravelOneTimePasswords;
 
+use Livewire\Livewire;
+use Spatie\LaravelOneTimePasswords\Livewire\SubmitOneTimePasswordComponent;
 use Spatie\LaravelOneTimePasswords\Support\OriginInspector\OriginEnforcer;
 use Spatie\LaravelOneTimePasswords\Support\PasswordGenerators\OneTimePasswordGenerator;
 use Spatie\LaravelPackageTools\Package;
@@ -23,5 +25,7 @@ class OneTimePasswordsServiceProvider extends PackageServiceProvider
     {
         $this->app->bind(OneTimePasswordGenerator::class, config('one-time-passwords.password_generator'));
         $this->app->bind(OriginEnforcer::class, config('one-time-passwords.origin_enforcer'));
+
+        Livewire::component('one-time-password', SubmitOneTimePasswordComponent::class);
     }
 }

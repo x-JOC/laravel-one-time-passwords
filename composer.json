@@ -60,7 +60,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "OneTimePasswordsServiceProvider"
+                "Spatie\\LaravelOneTimePasswords\\OneTimePasswordsServiceProvider"
             ]
         }
     },

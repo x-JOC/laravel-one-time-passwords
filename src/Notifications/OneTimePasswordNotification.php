@@ -13,16 +13,19 @@ class OneTimePasswordNotification extends Notification
 
     use Queueable;
 
-    public function __construct(protected OneTimePassword $oneTimePassword) {}
+    public function __construct(public OneTimePassword $oneTimePassword) {}
 
     public function toMail()
     {
-        $expiresInMinutes = config('one-time-passwords.default_expires_in_minutes');
-
         return (new MailMessage)
-            ->greeting('Hi')
-            ->line('Here is your one time password:')
-            ->line($this->oneTimePassword->password)
-            ->line("It is valid for {$expiresInMinutes} minutes.");
+            ->subject($this->subject())
+            ->markdown('one-time-passwords::mail');
+    }
+
+    public function subject(): string
+    {
+        return __('one-time-passwords::notifications.one_time_password_subject', [
+            'oneTimePassword' => $this->oneTimePassword->password,
+        ]);
     }
 }
