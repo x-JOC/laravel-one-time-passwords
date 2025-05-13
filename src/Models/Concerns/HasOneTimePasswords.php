@@ -26,6 +26,11 @@ trait HasOneTimePasswords
         return $this->morphMany($modelClass, 'authenticatable');
     }
 
+    public function deleteAllOneTimePasswords(): void
+    {
+        $this->oneTimePasswords()->delete();
+    }
+
     public function createOneTimePassword(?int $expiresInMinutes = null): OneTimePassword
     {
         $action = Config::getAction('create_one_time_password', CreateOneTimePasswordAction::class);

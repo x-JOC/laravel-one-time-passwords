@@ -17,6 +17,6 @@ enum ValidateOneTimePasswordResult: string
 
     public function validationMessage(): string
     {
-        return __('one-time-passwords::validation.'.$this->value);
+        return __("one-time-passwords::validation.{$this->value}");
     }
 }
