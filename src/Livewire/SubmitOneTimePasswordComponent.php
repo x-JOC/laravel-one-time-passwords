@@ -5,7 +5,6 @@ namespace Spatie\LaravelOneTimePasswords\Livewire;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
-use Spatie\LaravelOneTimePasswords\Actions\ConsumeOneTimePasswordAction;
 use Spatie\LaravelOneTimePasswords\Rules\OneTimePasswordRule;
 
 class SubmitOneTimePasswordComponent extends Component
