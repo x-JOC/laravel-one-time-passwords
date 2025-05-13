@@ -9,6 +9,8 @@ enum ValidateOneTimePasswordResult: string
     case IncorrectOneTimePassword = 'incorrect_one_time_password';
     case DifferentOrigin = 'different_origin';
     case OneTimePasswordExpired = 'one_time_password_expired';
+    case RateLimitExceeded = 'rate_limit_exceeded';
+
 
     public function isOk(): bool
     {

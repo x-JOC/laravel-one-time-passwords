@@ -4,7 +4,9 @@ namespace Spatie\LaravelOneTimePasswords\Actions;
 
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\RateLimiter;
 use Spatie\LaravelOneTimePasswords\Enums\ValidateOneTimePasswordResult;
 use Spatie\LaravelOneTimePasswords\Events\FailedToValidateOneTimePassword;
 use Spatie\LaravelOneTimePasswords\Events\OneTimePasswordSuccessfullyValidated;
@@ -19,33 +21,31 @@ class ConsumeOneTimePasswordAction
     ) {}
 
     /**
-     * @param  Authenticatable&HasOneTimePasswords  $user
+     * @param  Authenticatable&HasOneTimePasswords&Model  $user
      */
     public function execute(
-        Authenticatable $user,
+        Authenticatable&Model $user,
         string $password,
         Request $request
     ): ValidateOneTimePasswordResult {
         $oneTimePasswords = $this->getAllOneTimePasswordsForUser($user);
 
-        if (! count($oneTimePasswords)) {
-            $this->onFailedToValidate($user, ValidateOneTimePasswordResult::NoOneTimePasswordsFound);
+        if (! $this->allowedByRateLimit($user)) {
+            return $this->onFailedToValidate($user, ValidateOneTimePasswordResult::RateLimitExceeded);
+        }
 
-            return ValidateOneTimePasswordResult::NoOneTimePasswordsFound;
+        if (! count($oneTimePasswords)) {
+            return $this->onFailedToValidate($user, ValidateOneTimePasswordResult::NoOneTimePasswordsFound);
         }
 
         $oneTimePassword = $oneTimePasswords->firstWhere('password', $password);
 
         if (! $oneTimePassword) {
-            $this->onFailedToValidate($user, ValidateOneTimePasswordResult::IncorrectOneTimePassword);
-
-            return ValidateOneTimePasswordResult::IncorrectOneTimePassword;
+            return $this->onFailedToValidate($user, ValidateOneTimePasswordResult::IncorrectOneTimePassword);
         }
 
         if ($oneTimePassword->isExpired()) {
-            $this->onFailedToValidate($user, ValidateOneTimePasswordResult::OneTimePasswordExpired);
-
-            return ValidateOneTimePasswordResult::OneTimePasswordExpired;
+            return $this->onFailedToValidate($user, ValidateOneTimePasswordResult::OneTimePasswordExpired);
         }
 
         $originPropertiesAreValid = $this->originEnforcer->verifyProperties(
@@ -54,9 +54,7 @@ class ConsumeOneTimePasswordAction
         );
 
         if (! $originPropertiesAreValid) {
-            $this->onFailedToValidate($user, ValidateOneTimePasswordResult::DifferentOrigin);
-
-            return ValidateOneTimePasswordResult::DifferentOrigin;
+            return $this->onFailedToValidate($user, ValidateOneTimePasswordResult::DifferentOrigin);
         }
 
         $this->onSuccessfullyValidated($user, $oneTimePassword);
@@ -98,7 +96,20 @@ class ConsumeOneTimePasswordAction
     protected function onFailedToValidate(
         Authenticatable $user,
         ValidateOneTimePasswordResult $validationResult
-    ): void {
+    ): ValidateOneTimePasswordResult {
         event(new FailedToValidateOneTimePassword($user, $validationResult));
+
+        return $validationResult;
+    }
+
+    protected function allowedByRateLimit(Authenticatable&Model $user): bool
+    {
+        return RateLimiter::attempt(
+            "consume-one-time-password-attempt:{$user->getKey()}",
+            maxAttempts:  5,
+            callback: function() {
+            },
+            decaySeconds: 60
+        );
     }
 }
