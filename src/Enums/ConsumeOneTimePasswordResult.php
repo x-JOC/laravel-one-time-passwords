@@ -11,7 +11,6 @@ enum ConsumeOneTimePasswordResult: string
     case OneTimePasswordExpired = 'one_time_password_expired';
     case RateLimitExceeded = 'rate_limit_exceeded';
 
-
     public function isOk(): bool
     {
         return $this === self::Ok;

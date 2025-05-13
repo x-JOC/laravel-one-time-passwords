@@ -126,9 +126,8 @@ class ConsumeOneTimePasswordAction
     {
         return RateLimiter::attempt(
             "consume-one-time-password-attempt:{$user->getKey()}",
-            maxAttempts:  5,
-            callback: function() {
-            },
+            maxAttempts: 5,
+            callback: function () {},
             decaySeconds: 60
         );
     }
