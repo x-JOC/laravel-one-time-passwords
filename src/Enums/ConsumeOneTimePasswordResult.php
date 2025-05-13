@@ -5,11 +5,11 @@ namespace Spatie\LaravelOneTimePasswords\Enums;
 enum ConsumeOneTimePasswordResult: string
 {
     case Ok = 'ok';
-    case NoOneTimePasswordsFound = 'no_one_time_passwords_found';
-    case IncorrectOneTimePassword = 'incorrect_one_time_password';
-    case DifferentOrigin = 'different_origin';
-    case OneTimePasswordExpired = 'one_time_password_expired';
-    case RateLimitExceeded = 'rate_limit_exceeded';
+    case NoOneTimePasswordsFound = 'noOneTimePasswordsFound';
+    case IncorrectOneTimePassword = 'incorrectOneTimePassword';
+    case DifferentOrigin = 'differentOrigin';
+    case OneTimePasswordExpired = 'oneTimePasswordExpired';
+    case RateLimitExceeded = 'rateLimitExceeded';
 
     public function isOk(): bool
     {

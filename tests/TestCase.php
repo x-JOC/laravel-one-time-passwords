@@ -5,6 +5,7 @@ namespace Spatie\LaravelOneTimePasswords\Tests;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\LaravelOneTimePasswords\OneTimePasswordsServiceProvider;
 
@@ -14,6 +15,8 @@ class TestCase extends Orchestra
     {
         parent::setUp();
 
+        config()->set('cache.default', 'array');
+
         Factory::guessFactoryNamesUsing(
             fn (string $modelName) => 'Spatie\\LaravelOneTimePasswords\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
@@ -22,6 +25,7 @@ class TestCase extends Orchestra
     protected function getPackageProviders($app)
     {
         return [
+            LivewireServiceProvider::class,
             OneTimePasswordsServiceProvider::class,
         ];
     }
