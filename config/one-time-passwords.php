@@ -41,6 +41,15 @@ return [
     'redirect_successful_authentication_to' => '/dashboard',
 
     /*
+     * These values are used to rate limit the number of attempts
+     * that may be made to consume a one time password.
+     */
+    'rate_limit_attempts' => [
+        'max_attempts_per_user' => 5,
+        'time_window_in_seconds' => 60,
+    ],
+
+    /*
      * The model uses to store one time passwords
      */
     'model' => Spatie\LaravelOneTimePasswords\Models\OneTimePassword::class,
