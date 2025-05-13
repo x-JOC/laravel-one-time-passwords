@@ -2,7 +2,7 @@
 
 namespace Spatie\LaravelOneTimePasswords\Enums;
 
-enum ValidateOneTimePasswordResult: string
+enum ConsumeOneTimePasswordResult: string
 {
     case Ok = 'ok';
     case NoOneTimePasswordsFound = 'no_one_time_passwords_found';

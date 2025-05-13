@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Spatie\LaravelOneTimePasswords\Actions\ConsumeOneTimePasswordAction;
 use Spatie\LaravelOneTimePasswords\Actions\CreateOneTimePasswordAction;
-use Spatie\LaravelOneTimePasswords\Enums\ValidateOneTimePasswordResult;
+use Spatie\LaravelOneTimePasswords\Enums\ConsumeOneTimePasswordResult;
 use Spatie\LaravelOneTimePasswords\Exceptions\InvalidConfig;
 use Spatie\LaravelOneTimePasswords\Models\OneTimePassword;
 use Spatie\LaravelOneTimePasswords\Support\Config;
@@ -41,7 +41,7 @@ trait HasOneTimePasswords
         return $action->execute($this, $expiresInMinutes);
     }
 
-    public function consumeOneTimePassword(string $password): ValidateOneTimePasswordResult
+    public function consumeOneTimePassword(string $password): ConsumeOneTimePasswordResult
     {
         $action = Config::getAction('consume_one_time_password', ConsumeOneTimePasswordAction::class);
 

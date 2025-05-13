@@ -2,12 +2,14 @@
 
 namespace Spatie\LaravelOneTimePasswords\Actions;
 
+use Carbon\CarbonInterval;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
-use Spatie\LaravelOneTimePasswords\Enums\ValidateOneTimePasswordResult;
+use Illuminate\Support\Timebox;
+use Spatie\LaravelOneTimePasswords\Enums\ConsumeOneTimePasswordResult;
 use Spatie\LaravelOneTimePasswords\Events\FailedToValidateOneTimePassword;
 use Spatie\LaravelOneTimePasswords\Events\OneTimePasswordSuccessfullyValidated;
 use Spatie\LaravelOneTimePasswords\Models\Concerns\HasOneTimePasswords;
@@ -27,25 +29,43 @@ class ConsumeOneTimePasswordAction
         Authenticatable&Model $user,
         string $password,
         Request $request
-    ): ValidateOneTimePasswordResult {
+    ): ConsumeOneTimePasswordResult {
+        return new Timebox()->call(
+            callback: fn() => $this->consumeOneTimePassword($user, $password, $request),
+            microseconds: CarbonInterval::milliseconds(100)->microseconds,
+        );
+    }
+
+    /**
+     * @param Authenticatable&Model&HasOneTimePasswords $user
+     * @param string $password
+     * @param Request $request
+     *
+     * @return ConsumeOneTimePasswordResult
+     */
+    protected function consumeOneTimePassword(
+        Model&Authenticatable $user,
+        string $password,
+        Request $request
+    ): ConsumeOneTimePasswordResult {
         $oneTimePasswords = $this->getAllOneTimePasswordsForUser($user);
 
-        if (! $this->allowedByRateLimit($user)) {
-            return $this->onFailedToValidate($user, ValidateOneTimePasswordResult::RateLimitExceeded);
+        if (!$this->allowedByRateLimit($user)) {
+            return $this->onFailedToValidate($user, ConsumeOneTimePasswordResult::RateLimitExceeded);
         }
 
-        if (! count($oneTimePasswords)) {
-            return $this->onFailedToValidate($user, ValidateOneTimePasswordResult::NoOneTimePasswordsFound);
+        if (!count($oneTimePasswords)) {
+            return $this->onFailedToValidate($user, ConsumeOneTimePasswordResult::NoOneTimePasswordsFound);
         }
 
         $oneTimePassword = $oneTimePasswords->firstWhere('password', $password);
 
-        if (! $oneTimePassword) {
-            return $this->onFailedToValidate($user, ValidateOneTimePasswordResult::IncorrectOneTimePassword);
+        if (!$oneTimePassword) {
+            return $this->onFailedToValidate($user, ConsumeOneTimePasswordResult::IncorrectOneTimePassword);
         }
 
         if ($oneTimePassword->isExpired()) {
-            return $this->onFailedToValidate($user, ValidateOneTimePasswordResult::OneTimePasswordExpired);
+            return $this->onFailedToValidate($user, ConsumeOneTimePasswordResult::OneTimePasswordExpired);
         }
 
         $originPropertiesAreValid = $this->originEnforcer->verifyProperties(
@@ -53,13 +73,13 @@ class ConsumeOneTimePasswordAction
             $request,
         );
 
-        if (! $originPropertiesAreValid) {
-            return $this->onFailedToValidate($user, ValidateOneTimePasswordResult::DifferentOrigin);
+        if (!$originPropertiesAreValid) {
+            return $this->onFailedToValidate($user, ConsumeOneTimePasswordResult::DifferentOrigin);
         }
 
         $this->onSuccessfullyValidated($user, $oneTimePassword);
 
-        return ValidateOneTimePasswordResult::Ok;
+        return ConsumeOneTimePasswordResult::Ok;
     }
 
     /**
@@ -95,8 +115,8 @@ class ConsumeOneTimePasswordAction
 
     protected function onFailedToValidate(
         Authenticatable $user,
-        ValidateOneTimePasswordResult $validationResult
-    ): ValidateOneTimePasswordResult {
+        ConsumeOneTimePasswordResult $validationResult
+    ): ConsumeOneTimePasswordResult {
         event(new FailedToValidateOneTimePassword($user, $validationResult));
 
         return $validationResult;
@@ -112,4 +132,6 @@ class ConsumeOneTimePasswordAction
             decaySeconds: 60
         );
     }
+
+
 }

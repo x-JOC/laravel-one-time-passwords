@@ -1,6 +1,6 @@
 <?php
 
-use Spatie\LaravelOneTimePasswords\Enums\ValidateOneTimePasswordResult;
+use Spatie\LaravelOneTimePasswords\Enums\ConsumeOneTimePasswordResult;
 use Spatie\LaravelOneTimePasswords\Support\OriginInspector\DoNotEnforceOrigin;
 use Spatie\LaravelOneTimePasswords\Tests\TestSupport\Models\User;
 
@@ -31,7 +31,7 @@ it('can consume a one time password', function () {
 
     $result = $this->user->consumeOneTimePassword($oneTimePassword->password);
 
-    expect($result)->toBe(ValidateOneTimePasswordResult::Ok);
+    expect($result)->toBe(ConsumeOneTimePasswordResult::Ok);
 });
 
 it('will not return ok for a wrong password', function () {
@@ -39,10 +39,10 @@ it('will not return ok for a wrong password', function () {
 
     $result = $this->user->consumeOneTimePassword('wrong-password');
 
-    expect($result)->toBe(ValidateOneTimePasswordResult::IncorrectOneTimePassword);
+    expect($result)->toBe(ConsumeOneTimePasswordResult::IncorrectOneTimePassword);
 });
 
-it('will not return ok for a expired password', function (int $numberOfMinutes, ValidateOneTimePasswordResult $expectedResult) {
+it('will not return ok for a expired password', function (int $numberOfMinutes, ConsumeOneTimePasswordResult $expectedResult) {
     $oneTimePassword = $this->user->createOneTimePassword();
 
     $this->travel($numberOfMinutes)->minutes();
@@ -51,9 +51,9 @@ it('will not return ok for a expired password', function (int $numberOfMinutes, 
 
     expect($result)->toBe($expectedResult);
 })->with([
-    [0, ValidateOneTimePasswordResult::Ok],
-    [1, ValidateOneTimePasswordResult::Ok],
-    [2, ValidateOneTimePasswordResult::OneTimePasswordExpired],
+    [0, ConsumeOneTimePasswordResult::Ok],
+    [1, ConsumeOneTimePasswordResult::Ok],
+    [2, ConsumeOneTimePasswordResult::OneTimePasswordExpired],
 ]);
 
 it('will not work again if it has already been consumed', function () {
@@ -61,11 +61,11 @@ it('will not work again if it has already been consumed', function () {
     expect($this->user->oneTimePasswords)->toHaveCount(1);
 
     $result = $this->user->consumeOneTimePassword($oneTimePassword->password);
-    expect($result)->toBe(ValidateOneTimePasswordResult::Ok);
+    expect($result)->toBe(ConsumeOneTimePasswordResult::Ok);
     expect($this->user->refresh()->oneTimePasswords)->toHaveCount(0);
 
     $result = $this->user->consumeOneTimePassword($oneTimePassword->password);
-    expect($result)->toBe(ValidateOneTimePasswordResult::NoOneTimePasswordsFound);
+    expect($result)->toBe(ConsumeOneTimePasswordResult::NoOneTimePasswordsFound);
 });
 
 it('old one time passwords will not work anymore when a new one is created', function () {
@@ -76,8 +76,8 @@ it('old one time passwords will not work anymore when a new one is created', fun
 
     $resultForNewOneTimePassword = $this->user->consumeOneTimePassword($newOneTimePassword->password);
 
-    expect($resultForOldOneTimePassword)->toBe(ValidateOneTimePasswordResult::IncorrectOneTimePassword);
-    expect($resultForNewOneTimePassword)->toBe(ValidateOneTimePasswordResult::Ok);
+    expect($resultForOldOneTimePassword)->toBe(ConsumeOneTimePasswordResult::IncorrectOneTimePassword);
+    expect($resultForNewOneTimePassword)->toBe(ConsumeOneTimePasswordResult::Ok);
 
 });
 
@@ -89,7 +89,7 @@ it('will enforce the origin by default', function () {
     ]);
 
     $result = $this->user->consumeOneTimePassword($oneTimePassword->password);
-    expect($result)->toBe(ValidateOneTimePasswordResult::DifferentOrigin);
+    expect($result)->toBe(ConsumeOneTimePasswordResult::DifferentOrigin);
 });
 
 it('has an inspector that does not enforce origin', function () {
@@ -102,5 +102,5 @@ it('has an inspector that does not enforce origin', function () {
     ]);
 
     $result = $this->user->consumeOneTimePassword($oneTimePassword->password);
-    expect($result)->toBe(ValidateOneTimePasswordResult::Ok);
+    expect($result)->toBe(ConsumeOneTimePasswordResult::Ok);
 });
