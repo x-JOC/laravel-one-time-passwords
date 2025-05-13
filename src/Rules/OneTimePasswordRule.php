@@ -5,7 +5,7 @@ namespace Spatie\LaravelOneTimePasswords\Rules;
 use Closure;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Validation\ValidationRule;
-use Spatie\LaravelOneTimePasswords\Actions\ValidateOneTimePasswordAction;
+use Spatie\LaravelOneTimePasswords\Actions\ConsumeOneTimePasswordAction;
 
 class OneTimePasswordRule implements ValidationRule
 {
@@ -13,7 +13,7 @@ class OneTimePasswordRule implements ValidationRule
 
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        $result = app(ValidateOneTimePasswordAction::class)->execute(
+        $result = app(ConsumeOneTimePasswordAction::class)->execute(
             $this->user,
             $value,
             request(),

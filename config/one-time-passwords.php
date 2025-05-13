@@ -38,6 +38,8 @@ return [
      */
     'password_length' => 6,
 
+    'redirect_successful_authentication_to' => '/dashboard',
+
     /*
      * The model uses to store one time passwords
      */
