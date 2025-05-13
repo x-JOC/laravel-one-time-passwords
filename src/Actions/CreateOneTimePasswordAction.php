@@ -18,15 +18,10 @@ class CreateOneTimePasswordAction
     ) {}
 
     /**
-     * @param Authenticatable&HasOneTimePasswords $user
-     * @param int|null $expiresInMinutes
-     * @param Request|null $request
-     *
-     * @return OneTimePassword
+     * @param  Authenticatable&HasOneTimePasswords  $user
      */
     public function execute(
-        Authenticatable
- $user,
+        Authenticatable $user,
         ?int $expiresInMinutes = null,
         ?Request $request = null
     ): OneTimePassword {
@@ -39,11 +34,7 @@ class CreateOneTimePasswordAction
     }
 
     /**
-     * @param Authenticatable&HasOneTimePasswords $user
-     * @param int|null $expiresInMinutes
-     * @param Request|null $request
-     *
-     * @return OneTimePassword
+     * @param  Authenticatable&HasOneTimePasswords  $user
      */
     protected function createNewOneTimePassword(?int $expiresInMinutes, Authenticatable $user, ?Request $request): OneTimePassword
     {
@@ -57,7 +48,7 @@ class CreateOneTimePasswordAction
     }
 
     /**
-     * @param Authenticatable&HasOneTimePasswords $user
+     * @param  Authenticatable&HasOneTimePasswords  $user
      */
     protected function deleteOldOneTimePasswords(Authenticatable $user): void
     {

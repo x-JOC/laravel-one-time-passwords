@@ -11,6 +11,7 @@ use Spatie\LaravelOneTimePasswords\Tests\TestSupport\Models\User;
 
 /**
  * @extends Factory<User>
+ *
  * @phpstan-extends Factory<Model&Authenticatable>
  */
 class UserFactory extends Factory

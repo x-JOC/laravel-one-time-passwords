@@ -2,12 +2,12 @@
 
 namespace Spatie\LaravelOneTimePasswords\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\MassPrunable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Str;
-use Carbon\Carbon;
 
 class OneTimePassword extends Model
 {
@@ -19,7 +19,7 @@ class OneTimePassword extends Model
     {
         return [
             'origin_properties' => 'array',
-            'expires_at' => 'datetime'
+            'expires_at' => 'datetime',
         ];
     }
 
@@ -43,9 +43,6 @@ class OneTimePassword extends Model
 
     /**
      * Validate the given password against this one-time password.
-     *
-     * @param  string  $password
-     * @return bool
      */
     public function validate(string $password): bool
     {

@@ -8,8 +8,6 @@ use Spatie\LaravelOneTimePasswords\Models\OneTimePassword;
 interface OriginEnforcer
 {
     /**
-     * @param \Illuminate\Http\Request $request
-     *
      * @return array<string, string|int>
      */
     public function gatherProperties(Request $request): array;
