@@ -46,7 +46,8 @@ trait HasOneTimePasswords
     {
         $oneTimePassword = $this->createOneTimePassword($expiresInMinutes);
 
-        $this->notify(new OneTimePasswordNotification($oneTimePassword));
+        $notificationClass = Config::oneTimePasswordNotificationClass();
+        $this->notify(new $notificationClass($oneTimePassword));
 
         return $this;
     }

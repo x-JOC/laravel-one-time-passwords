@@ -55,6 +55,11 @@ return [
     'model' => Spatie\LaravelOneTimePasswords\Models\OneTimePassword::class,
 
     /*
+     * The notification used to send a one time password to a user
+     */
+    'notification' => Spatie\LaravelOneTimePasswords\Notifications\OneTimePasswordNotification::class,
+
+    /*
      * These class are responsible for performing core tasks regarding one time passwords.
      * You can customize them by creating a class that extends the default, and
      * by specifying your custom class name here.

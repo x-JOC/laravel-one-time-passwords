@@ -5,6 +5,7 @@ namespace Spatie\LaravelOneTimePasswords\Support;
 use Spatie\LaravelOneTimePasswords\Exceptions\InvalidActionClass;
 use Spatie\LaravelOneTimePasswords\Exceptions\InvalidConfig;
 use Spatie\LaravelOneTimePasswords\Models\OneTimePassword;
+use Spatie\LaravelOneTimePasswords\Notifications\OneTimePasswordNotification;
 
 class Config
 {
@@ -20,6 +21,17 @@ class Config
         }
 
         return $modelClass;
+    }
+
+    public static function oneTimePasswordNotificationClass(): string
+    {
+        $notificationClass =  config('one-time-passwords.notification');
+
+        if (! is_a($notificationClass, OneTimePasswordNotification::class, true)) {
+            throw InvalidConfig::invalidNotification($notificationClass);
+        }
+
+        return $notificationClass;
     }
 
     /**

@@ -10,4 +10,9 @@ class InvalidConfig extends Exception
     {
         return new self("The configured model `{$model}` is not a valid model because it does not extend or is `Spatie\LaravelOneTimePasswords\Models\OneTimePassword`.");
     }
+
+    public static function invalidNotification(mixed $notificationClass): self
+    {
+        return new self("The configured notification `{$notificationClass}` is not a valid notification class because it does not extend `Spatie\LaravelOneTimePasswords\Notifications\OneTimePasswordNotification`.");
+    }
 }

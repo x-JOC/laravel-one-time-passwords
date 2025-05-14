@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\LaravelOneTimePasswords\Tests;
+namespace Spatie\LaravelOneTimePasswords\Tests\TestSupport;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Schema\Blueprint;
@@ -36,7 +36,7 @@ class TestCase extends Orchestra
 
         Schema::dropAllTables();
 
-        $migration = include __DIR__.'/../database/migrations/create_one_time_passwords_table.php.stub';
+        $migration = include __DIR__.'/../../database/migrations/create_one_time_passwords_table.php.stub';
         $migration->up();
 
         Schema::create('users', function (Blueprint $table) {
