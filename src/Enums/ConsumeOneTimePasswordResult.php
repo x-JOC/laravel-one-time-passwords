@@ -2,6 +2,8 @@
 
 namespace Spatie\LaravelOneTimePasswords\Enums;
 
+use Illuminate\Support\Str;
+
 enum ConsumeOneTimePasswordResult: string
 {
     case Ok = 'ok';
@@ -18,6 +20,8 @@ enum ConsumeOneTimePasswordResult: string
 
     public function validationMessage(): string
     {
-        return __("one-time-passwords::validation.{$this->value}");
+        $validationKey = Str::snake($this->value);
+
+        return __("one-time-passwords::validation.{$validationKey}");
     }
 }

@@ -52,17 +52,11 @@ class OneTimePasswordComponent extends Component
     {
         $user = $this->findUser();
 
-        info('validating one time password...');
-
         $this->validate([
             'oneTimePassword' => ['required', new OneTimePasswordRule($user)]
         ]);
 
-        info('authenticating user...');
-
         $this->authenticate($user);
-
-        info('redirecting...');
 
         return $this->redirect($this->redirectTo);
     }

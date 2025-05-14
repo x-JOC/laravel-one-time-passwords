@@ -9,9 +9,9 @@
             <input
                 type="text"
                 id="one_time_password"
-                wire:model="one_time_password"
+                wire:model="oneTimePassword"
             >
-            @error('one_time_password')
+            @error('oneTimePassword')
                 <p>{{ $message }}</p>
             @enderror
         </div>
