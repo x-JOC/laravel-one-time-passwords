@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Timebox;
 use Spatie\LaravelOneTimePasswords\Enums\ConsumeOneTimePasswordResult;
-use Spatie\LaravelOneTimePasswords\Events\FailedToValidateOneTimePassword;
+use Spatie\LaravelOneTimePasswords\Events\FailedToConsumeOneTimePassword;
 use Spatie\LaravelOneTimePasswords\Events\OneTimePasswordSuccessfullyValidated;
 use Spatie\LaravelOneTimePasswords\Models\Concerns\HasOneTimePasswords;
 use Spatie\LaravelOneTimePasswords\Models\OneTimePassword;
@@ -117,7 +117,7 @@ class ConsumeOneTimePasswordAction
         Authenticatable $user,
         ConsumeOneTimePasswordResult $validationResult
     ): ConsumeOneTimePasswordResult {
-        event(new FailedToValidateOneTimePassword($user, $validationResult));
+        event(new FailedToConsumeOneTimePassword($user, $validationResult));
 
         return $validationResult;
     }

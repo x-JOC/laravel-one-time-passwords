@@ -3,14 +3,13 @@
 namespace Spatie\LaravelOneTimePasswords\Livewire;
 
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Spatie\LaravelOneTimePasswords\Rules\OneTimePasswordRule;
-use Spatie\LaravelOneTimePasswords\Tests\TestSupport\Models\User;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Spatie\LaravelOneTimePasswords\Models\Concerns\HasOneTimePasswords;
+use \Illuminate\Database\Eloquent\Model;
 
-class SubmitOneTimePasswordComponent extends Component
+class OneTimePasswordComponent extends Component
 {
     public ?string $email = null;
     public string $oneTimePassword = '';
@@ -38,8 +37,12 @@ class SubmitOneTimePasswordComponent extends Component
 
         $user = $this->findUser();
 
-        if (! $user) {
+        if (!$user) {
             $this->email = null;
+
+            $this->addError('email', 'We could not find a user with that email address.');
+
+            return;
         }
 
         $user->sendOneTimePassword();
@@ -49,35 +52,45 @@ class SubmitOneTimePasswordComponent extends Component
     {
         $user = $this->findUser();
 
+        info('validating one time password...');
+
         $this->validate([
-            ['required', new OneTimePasswordRule($user)]
+            'oneTimePassword' => ['required', new OneTimePasswordRule($user)]
         ]);
 
+        info('authenticating user...');
+
         $this->authenticate($user);
+
+        info('redirecting...');
 
         return $this->redirect($this->redirectTo);
     }
 
     public function render(): View
     {
-        return view("one-time-passwords::livewire.{$this->showingView()}}");
+        return view("one-time-passwords::livewire.{$this->showViewName()}");
     }
 
     /**
      * @return HasOneTimePasswords&Model&Authenticatable
      */
-    protected function findUser(): ?User
+    protected function findUser(): ?Authenticatable
     {
-        return User::firstWhere('email', $this->email);
+        $authenticatableModel = config('auth.providers.users.model');
+
+        /** TODO: use real authenticatable */
+        return $authenticatableModel::firstWhere('email', $this->email);
     }
 
-    public function authenticate(User $user)
+    public function authenticate(Authenticatable $user)
     {
         auth()->login($user);
     }
 
-    public function showingView(): bool
+    public function showViewName(): string
     {
+
         return $this->email
             ? 'one-time-password-form'
             : 'email-form';

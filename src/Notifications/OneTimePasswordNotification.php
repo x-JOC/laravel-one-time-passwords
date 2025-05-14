@@ -19,7 +19,14 @@ class OneTimePasswordNotification extends Notification
     {
         return (new MailMessage)
             ->subject($this->subject())
-            ->markdown('one-time-passwords::mail');
+            ->markdown('one-time-passwords::mail', [
+                'oneTimePassword' => $this->oneTimePassword
+            ]);
+    }
+
+    public function via()
+    {
+        return 'mail';
     }
 
     public function subject(): string
