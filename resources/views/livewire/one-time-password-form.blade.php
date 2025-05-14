@@ -1,6 +1,5 @@
 <div>
     <h2>{{ __('one-time-passwords::form.title') }}</h2>
-
     <form wire:submit="submitOneTimePassword">
         <div>
             <label for="password">

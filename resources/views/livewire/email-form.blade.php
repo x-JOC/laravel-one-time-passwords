@@ -17,7 +17,7 @@
 
         <div>
             <button type="submit">
-                Send one time login code
+                Send one-time login code
             </button>
         </div>
     </form>

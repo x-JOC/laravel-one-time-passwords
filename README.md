@@ -1,11 +1,33 @@
-# Use one time passwords (OTP) to authenticate in your Laravel app
+# One-time passwords (OTP) for Laravel apps
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-one-time-passwords.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-one-time-passwords)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/spatie/laravel-one-time-passwords/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/spatie/laravel-one-time-passwords/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/spatie/laravel-one-time-passwords/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/spatie/laravel-one-time-passwords/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-one-time-passwords.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-one-time-passwords)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+Using this package, you can securely create and consume one-time passwords. By default, a one-time password is a number of six digits long.
+
+The package provides easy-to-use methods to build the one-time password login flow you want. It also provides a Livewire component to allow users to login using a one-time password.
+
+Here's how you would send a one-time password to a user
+
+```php
+// send a mail containing a one-time password
+
+$user->sendOneTimePassword();
+```
+
+Here's how you would try to log in a user using a one-time password.
+
+```php
+$user->attemptLoginUsingOneTimePassword($oneTimePassword)
+```
+
+The package tries to make one-time passwords as secure as can be by:
+- letting them expire in a short timeframe (2 minutes by default)
+- only allowing to consume a one-time password on the same IP and user agent as it was generated
+
+All behavior is implemented in action classes that can be modified to your liking.
 
 ## Support us
 

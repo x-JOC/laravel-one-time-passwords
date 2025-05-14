@@ -1,8 +1,30 @@
+---
+title: Installation & setup
+weight: 4
+---
+
+You can install the package via composer:
+
+```bash
+composer require spatie/laravel-one-time-passwords
+```
+
+## Publishing the config file
+
+Optionally, you can publish the `one-time-passwords` config file with this command.
+
+```bash
+php artisan vendor:publish --tag="one-time-password-config"
+```
+
+This is the content of the published config file:
+
+```php
 <?php
 
 return [
     /*
-     * one-time passwords should be consumed within this number of minutes
+     * One time passwords should be consumed within this number of minutes
      */
     'default_expires_in_minutes' => 2,
 
@@ -69,3 +91,30 @@ return [
         'consume_one_time_password' => Spatie\LaravelOneTimePasswords\Actions\ConsumeOneTimePasswordAction::class,
     ],
 ];
+
+```
+
+## Migrating the database
+
+This package can store one-time passwords in the database. You can create the `one_time_passwords` table by publishing and running the migrations.
+
+```bash
+php artisan vendor:publish --tag="one-time-passwords-migrations"
+php artisan migrate
+```
+
+## Deleting expired one-time passwords
+
+This package uses [the `MassPrunable` trait provided by Laravel](https://laravel.com/docs/12.x/eloquent#pruning-models).
+
+To delete expired one-time password, you can add the `model:prune` command to your schedule.
+
+Here's an example where expired one-time passwords are deleted daily.
+
+```php
+use Spatie\LaravelOneTimePasswords\Models\OneTimePassword;
+
+Schedule::command('model:prune', [
+    '--model' => [OneTimePassword::class],
+])->daily()
+```

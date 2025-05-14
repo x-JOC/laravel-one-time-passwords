@@ -12,7 +12,7 @@ beforeEach(function () {
     $this->user = $user;
 });
 
-it('can create a one time password', function () {
+it('can create a one-time password', function () {
     $this->user->createOneTimePassword();
 
     expect($this->user->oneTimePasswords)->toHaveCount(1);
@@ -26,7 +26,7 @@ it('can create a one time password', function () {
     expect($oneTimePassword->expires_at->toDateTimeString())->toBe($expectedExpiresAt);
 });
 
-it('can consume a one time password', function () {
+it('can consume a one-time password', function () {
     $oneTimePassword = $this->user->createOneTimePassword();
 
     $result = $this->user->consumeOneTimePassword($oneTimePassword->password);
@@ -68,7 +68,7 @@ it('will not work again if it has already been consumed', function () {
     expect($result)->toBe(ConsumeOneTimePasswordResult::NoOneTimePasswordsFound);
 });
 
-it('will not accept old one time passwords anymore when a new one is created', function () {
+it('will not accept old one-time passwords anymore when a new one is created', function () {
     $oldOneTimePassword = $this->user->createOneTimePassword();
     $newOneTimePassword = $this->user->createOneTimePassword();
 
