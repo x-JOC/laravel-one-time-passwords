@@ -30,18 +30,14 @@ class ConsumeOneTimePasswordAction
         string $password,
         Request $request
     ): ConsumeOneTimePasswordResult {
-        return new Timebox()->call(
-            callback: fn() => $this->consumeOneTimePassword($user, $password, $request),
+        return (new Timebox)->call(
+            callback: fn () => $this->consumeOneTimePassword($user, $password, $request),
             microseconds: CarbonInterval::milliseconds(100)->microseconds,
         );
     }
 
     /**
-     * @param Authenticatable&Model&HasOneTimePasswords $user
-     * @param string $password
-     * @param Request $request
-     *
-     * @return ConsumeOneTimePasswordResult
+     * @param  Authenticatable&Model&HasOneTimePasswords  $user
      */
     protected function consumeOneTimePassword(
         Model&Authenticatable $user,
@@ -50,17 +46,17 @@ class ConsumeOneTimePasswordAction
     ): ConsumeOneTimePasswordResult {
         $oneTimePasswords = $this->getAllOneTimePasswordsForUser($user);
 
-        if (!$this->allowedByRateLimit($user)) {
+        if (! $this->allowedByRateLimit($user)) {
             return $this->onFailedToValidate($user, ConsumeOneTimePasswordResult::RateLimitExceeded);
         }
 
-        if (!count($oneTimePasswords)) {
+        if (! count($oneTimePasswords)) {
             return $this->onFailedToValidate($user, ConsumeOneTimePasswordResult::NoOneTimePasswordsFound);
         }
 
         $oneTimePassword = $oneTimePasswords->firstWhere('password', $password);
 
-        if (!$oneTimePassword) {
+        if (! $oneTimePassword) {
             return $this->onFailedToValidate($user, ConsumeOneTimePasswordResult::IncorrectOneTimePassword);
         }
 
@@ -73,7 +69,7 @@ class ConsumeOneTimePasswordAction
             $request,
         );
 
-        if (!$originPropertiesAreValid) {
+        if (! $originPropertiesAreValid) {
             return $this->onFailedToValidate($user, ConsumeOneTimePasswordResult::DifferentOrigin);
         }
 

@@ -10,7 +10,6 @@ use Spatie\LaravelOneTimePasswords\Actions\CreateOneTimePasswordAction;
 use Spatie\LaravelOneTimePasswords\Enums\ConsumeOneTimePasswordResult;
 use Spatie\LaravelOneTimePasswords\Exceptions\InvalidConfig;
 use Spatie\LaravelOneTimePasswords\Models\OneTimePassword;
-use Spatie\LaravelOneTimePasswords\Notifications\OneTimePasswordNotification;
 use Spatie\LaravelOneTimePasswords\Support\Config;
 
 /** @mixin Model&Authenticatable */

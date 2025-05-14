@@ -25,7 +25,7 @@ class Config
 
     public static function oneTimePasswordNotificationClass(): string
     {
-        $notificationClass =  config('one-time-passwords.notification');
+        $notificationClass = config('one-time-passwords.notification');
 
         if (! is_a($notificationClass, OneTimePasswordNotification::class, true)) {
             throw InvalidConfig::invalidNotification($notificationClass);

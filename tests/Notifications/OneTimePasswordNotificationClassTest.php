@@ -1,26 +1,25 @@
 <?php
 
 use Illuminate\Support\HtmlString;
+use Spatie\LaravelOneTimePasswords\Models\OneTimePassword;
 use Spatie\LaravelOneTimePasswords\Notifications\OneTimePasswordNotification;
 use Spatie\LaravelOneTimePasswords\Tests\TestSupport\Models\User;
-use Spatie\LaravelOneTimePasswords\Models\OneTimePassword;
 
-beforeEach(function() {
+beforeEach(function () {
 
-   /** @var User $user */
-   $user = User::factory()->create();
+    /** @var User $user */
+    $user = User::factory()->create();
 
-   /** @var OneTimePassword oneTimePassword */
-   $this->oneTimePassword = $user->createOneTimePassword();
-
+    /** @var OneTimePassword oneTimePassword */
+    $this->oneTimePassword = $user->createOneTimePassword();
 
 });
 
-it('can render the notification', function() {
-     $notification = new OneTimePasswordNotification($this->oneTimePassword);
+it('can render the notification', function () {
+    $notification = new OneTimePasswordNotification($this->oneTimePassword);
 
-     $renderedMail = $notification->toMail()->render();
+    $renderedMail = $notification->toMail()->render();
 
-     expect($renderedMail)->toBeInstanceOf(HtmlString::class);
-     expect($renderedMail->toHtml())->toContain($this->oneTimePassword->password);
+    expect($renderedMail)->toBeInstanceOf(HtmlString::class);
+    expect($renderedMail->toHtml())->toContain($this->oneTimePassword->password);
 });

@@ -2,19 +2,21 @@
 
 namespace Spatie\LaravelOneTimePasswords\Livewire;
 
-use Illuminate\Contracts\View\View;
-use Livewire\Component;
-use Spatie\LaravelOneTimePasswords\Rules\OneTimePasswordRule;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Model;
+use Livewire\Component;
 use Spatie\LaravelOneTimePasswords\Models\Concerns\HasOneTimePasswords;
-use \Illuminate\Database\Eloquent\Model;
+use Spatie\LaravelOneTimePasswords\Rules\OneTimePasswordRule;
 
 class OneTimePasswordComponent extends Component
 {
     public ?string $email = null;
+
     public string $oneTimePassword = '';
 
     public bool $isFixedEmail = false;
+
     public string $redirectTo = '/';
 
     public function mount(?string $redirectTo = null, ?string $email = ''): void
@@ -37,7 +39,7 @@ class OneTimePasswordComponent extends Component
 
         $user = $this->findUser();
 
-        if (!$user) {
+        if (! $user) {
             $this->email = null;
 
             $this->addError('email', 'We could not find a user with that email address.');
@@ -53,7 +55,7 @@ class OneTimePasswordComponent extends Component
         $user = $this->findUser();
 
         $this->validate([
-            'oneTimePassword' => ['required', new OneTimePasswordRule($user)]
+            'oneTimePassword' => ['required', new OneTimePasswordRule($user)],
         ]);
 
         $this->authenticate($user);
