@@ -1,6 +1,6 @@
 ---
 title: Configuring password format
-weight: 2
+weight: 3
 ---
 
 By default, a one-time password is a 6-digit number. 

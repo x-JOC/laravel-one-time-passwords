@@ -1,6 +1,6 @@
 ---
 title: Allowing multiple passwords
-weight: 3
+weight: 4
 ---
 
 By default, when a one-time password is created for a user, all old one-time passwords for that user will be deleted. This is to ensure that the user can only use one password at a time.
