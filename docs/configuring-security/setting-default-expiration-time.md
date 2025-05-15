@@ -3,9 +3,4 @@ title: Setting default expiration time
 weight: 5
 ---
 
-One-time passwords offer a convenient authentication method for users. Because one-time passwords are easily guessable, we added a few security measures:
-
-- one-time passwords are valid for 2 minutes by default
-- one-time passwords must be used on the same origin as the one that generated them
-- only one one-time password can be valid for a user at a time
-- the one-time password is invalidated after it is used
+By default, the expiration time of a one-time password is 2 minutes. You can change this value by setting the `default_expires_in_minutes` key in the `one-time-passwords` config file.
