@@ -33,7 +33,7 @@ it('can consume a one-time password', function () {
     expect($result)->toBe(ConsumeOneTimePasswordResult::Ok);
 });
 
-it('will not work for another user', function() {
+it('will not work for another user', function () {
     $oneTimePassword = $this->user->createOneTimePassword();
 
     $anotherUser = User::factory()->create();
