@@ -38,6 +38,10 @@ return [
      */
     'password_length' => 6,
 
+    /*
+     * The Livewire component will redirect successfully authenticated users
+     * to this URL.
+     */
     'redirect_successful_authentication_to' => '/dashboard',
 
     /*
