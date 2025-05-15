@@ -20,7 +20,20 @@ $user->sendOneTimePassword();
 Here's how you would try to log in a user using a one-time password.
 
 ```php
-$user->attemptLoginUsingOneTimePassword($oneTimePassword)
+use Spatie\LaravelOneTimePasswords\Enums\ConsumeOneTimePasswordResult;
+
+$result = $user->attemptLoginUsingOneTimePassword($oneTimePassword);
+
+if ($result->isOk()) {
+     // it is best practice to regenerate the session id after a login   
+     $request->session()->regenerate();
+              
+     return redirect()->intended('dashboard');
+}
+
+return back()->withErrors([
+    'one_time_password' => $result->validationMessage(),
+])->onlyInput('one_time_password');
 ```
 
 The package tries to make one-time passwords as secure as can be by:
