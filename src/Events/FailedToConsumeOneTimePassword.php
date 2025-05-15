@@ -5,10 +5,10 @@ namespace Spatie\LaravelOneTimePasswords\Events;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Spatie\LaravelOneTimePasswords\Enums\ConsumeOneTimePasswordResult;
 
-class FailedToConsumeOneTimePassword
+readonly class FailedToConsumeOneTimePassword
 {
     public function __construct(
-        public readonly Authenticatable $user,
-        public readonly ConsumeOneTimePasswordResult $validationResult,
+        public Authenticatable $user,
+        public ConsumeOneTimePasswordResult $validationResult,
     ) {}
 }

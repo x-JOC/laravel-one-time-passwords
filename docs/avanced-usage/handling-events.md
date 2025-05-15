@@ -3,5 +3,7 @@ title: Handling events
 weight: 5
 ---
 
-Coming soon...
+The packages will fire these events for you to hook into:
+
+- 
 

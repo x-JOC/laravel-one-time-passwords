@@ -5,10 +5,10 @@ namespace Spatie\LaravelOneTimePasswords\Events;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Spatie\LaravelOneTimePasswords\Models\OneTimePassword;
 
-class OneTimePasswordSuccessfullyValidated
+readonly class OneTimePasswordSuccessfullyValidated
 {
     public function __construct(
-        protected readonly Authenticatable $user,
-        protected readonly OneTimePassword $oneTimePassword,
+        protected Authenticatable $user,
+        protected OneTimePassword $oneTimePassword,
     ) {}
 }
