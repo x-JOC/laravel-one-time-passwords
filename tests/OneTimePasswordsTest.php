@@ -5,7 +5,6 @@ use Spatie\LaravelOneTimePasswords\Support\OriginInspector\DoNotEnforceOrigin;
 use Spatie\LaravelOneTimePasswords\Tests\TestSupport\Models\User;
 
 beforeEach(function () {
-
     /** @var $user User */
     $user = User::factory()->create();
 
@@ -32,6 +31,16 @@ it('can consume a one-time password', function () {
     $result = $this->user->consumeOneTimePassword($oneTimePassword->password);
 
     expect($result)->toBe(ConsumeOneTimePasswordResult::Ok);
+});
+
+it('will not work for another user', function() {
+    $oneTimePassword = $this->user->createOneTimePassword();
+
+    $anotherUser = User::factory()->create();
+
+    $result = $anotherUser->consumeOneTimePassword($oneTimePassword->password);
+
+    expect($result)->toBe(ConsumeOneTimePasswordResult::NoOneTimePasswordsFound);
 });
 
 it('will not return ok for a wrong password', function () {
@@ -103,4 +112,22 @@ it('has an inspector that does not enforce origin', function () {
 
     $result = $this->user->consumeOneTimePassword($oneTimePassword->password);
     expect($result)->toBe(ConsumeOneTimePasswordResult::Ok);
+});
+
+it('can log in the user', function () {
+    $oneTimePassword = $this->user->createOneTimePassword();
+
+    expect(auth()->check())->toBeFalse();
+    $result = $this->user->attemptLoginUsingOneTimePassword($oneTimePassword->password);
+    expect($result)->toBe(ConsumeOneTimePasswordResult::Ok);
+    expect(auth()->check())->toBeTrue();
+});
+
+it('will not login the user when the password is incorrect', function () {
+    $oneTimePassword = $this->user->createOneTimePassword();
+
+    expect(auth()->check())->toBeFalse();
+    $result = $this->user->attemptLoginUsingOneTimePassword('wrong-password');
+    expect($result)->toBe(ConsumeOneTimePasswordResult::IncorrectOneTimePassword);
+    expect(auth()->check())->toBeFalse();
 });

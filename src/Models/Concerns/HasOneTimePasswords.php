@@ -57,4 +57,15 @@ trait HasOneTimePasswords
 
         return $action->execute($this, $password, request());
     }
+
+    public function attemptLoginUsingOneTimePassword(string $password, bool $remember = false): ConsumeOneTimePasswordResult
+    {
+        $result = $this->consumeOneTimePassword($password);
+
+        if ($result->isOk()) {
+            auth()->login($this, $remember);
+        }
+
+        return $result;
+    }
 }
