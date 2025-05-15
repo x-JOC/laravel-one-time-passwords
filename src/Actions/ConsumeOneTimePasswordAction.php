@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Timebox;
 use Spatie\LaravelOneTimePasswords\Enums\ConsumeOneTimePasswordResult;
 use Spatie\LaravelOneTimePasswords\Events\FailedToConsumeOneTimePassword;
-use Spatie\LaravelOneTimePasswords\Events\OneTimePasswordSuccessfullyValidated;
+use Spatie\LaravelOneTimePasswords\Events\OneTimePasswordSuccessfullyConsumed;
 use Spatie\LaravelOneTimePasswords\Models\Concerns\HasOneTimePasswords;
 use Spatie\LaravelOneTimePasswords\Models\OneTimePassword;
 use Spatie\LaravelOneTimePasswords\Support\OriginInspector\OriginEnforcer;
@@ -104,7 +104,7 @@ class ConsumeOneTimePasswordAction
 
     protected function onSuccessfullyValidated(Authenticatable $user, OneTimePassword $oneTimePassword): void
     {
-        event(new OneTimePasswordSuccessfullyValidated($user, $oneTimePassword));
+        event(new OneTimePasswordSuccessfullyConsumed($user, $oneTimePassword));
 
         $oneTimePassword->delete();
     }
