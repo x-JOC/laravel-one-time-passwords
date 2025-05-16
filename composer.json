@@ -28,6 +28,7 @@
         "pestphp/pest": "^3.0",
         "pestphp/pest-plugin-arch": "^3.0",
         "pestphp/pest-plugin-laravel": "^3.0",
+        "phpstan/phpstan": "^2.1",
         "spatie/laravel-ray": "^1.35"
     },
     "autoload": {
