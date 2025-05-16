@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-one-time-passwords` will be documented in this file.
 
+## 0.0.2 - 2025-05-16
+
+**Full Changelog**: https://github.com/spatie/laravel-one-time-passwords/compare/0.0.1...0.0.2
+
 ## 0.0.1 - 2025-05-14
 
 ### What's Changed
