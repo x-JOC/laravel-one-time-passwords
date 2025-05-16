@@ -10,7 +10,6 @@ return [
     'submit_login_code_button' => 'Submit one-time login code',
 ];
 
-
 /*
 'title' => 'One time login code',
         'password_label' => 'Enter your login code',
