@@ -3,7 +3,8 @@ title: Using your own model
 weight: 3
 ---
 
-you want to use a custom model, you can do so by following these steps.
+By using a custom model, you can change low-level behaviour of the package, such as setting a different table name or db connection, adding custom properties, or overriding methods.
+
 
 ## Step 1: Create a custom model
 
