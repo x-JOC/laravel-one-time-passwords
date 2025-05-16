@@ -4,6 +4,7 @@ namespace Spatie\LaravelOneTimePasswords\Tests\TestSupport;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Encryption\Encrypter;
 use Illuminate\Support\Facades\Schema;
 use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
@@ -33,6 +34,8 @@ class TestCase extends Orchestra
     public function getEnvironmentSetUp($app)
     {
         config()->set('database.default', 'testing');
+        config()->set('app.key', Encrypter::generateKey(config('app.cipher')));
+
 
         Schema::dropAllTables();
 
