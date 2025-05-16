@@ -30,10 +30,10 @@ class CustomOneTimePasswordNotification extends OneTimePasswordNotification
 }
 ```
 
-Then, you can update the `config/passkeys.php` configuration file to use your custom notification class.
+Then, you can update the `config/one-time-passwords.php` configuration file to use your custom notification class.
 
 ```php
-// config/passkeys.php
+// config/one-time passwords.php
 
 return [
     // ...

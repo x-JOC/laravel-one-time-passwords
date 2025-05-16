@@ -5,7 +5,7 @@ weight: 1
 
 The core functionality of this package is implemented in action classes. You can override the default behaviour by creating your own action classes and registering them in the `config/one-time-passwords.php` config file.
 
-Here's an example where we override the `create_one_time_password` action to add custom logic after a passkey is stored:
+Here's an example where we override the `create_one_time_password` action to add custom logic after a one-time password is stored:
 
 First, let's create the custom class.
 

@@ -7,7 +7,7 @@ By using a custom model, you can change low-level behaviour of the package, such
 
 ## Step 1: Create a custom model
 
-Create a new model that extends the `Spatie\Passkeys\Models\Passkey` model.
+Create a new model that extends the `Spatie\LaravelOneTimePasswords\Models\OneTimePassword` model.
 
 ```php
 namespace App\Models;
@@ -30,7 +30,7 @@ Next, you need to update the `config/one-time-passwords.php` configuration file 
 return [
     // ...
     'models' => [
-        // The model used to store passkeys
+        // The model used to store one-time passwords
         'model' => App\Models\CustomOneTimePassword::class,
     ],
 ];
