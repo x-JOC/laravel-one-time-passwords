@@ -11,18 +11,3 @@ return [
 
     'resend_code' => 'Resend code',
 ];
-
-/*
-'title' => 'One time login code',
-        'password_label' => 'Enter your login code',
-        'submit_button' => 'Verify',
-        'invalid_password' => 'The login code you entered is invalid. Please try again.',
-*/
-
-/*
-'one_time_password_form' => [
-    'title' => 'Login with One-Time Password',
-    'email_label' => 'Email',
-    'button_text' => 'Send one-time login code',
-],
-*/
