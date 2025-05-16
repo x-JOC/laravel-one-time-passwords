@@ -5,11 +5,10 @@ namespace Spatie\LaravelOneTimePasswords\Livewire;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\RateLimiter;
 use Livewire\Component;
 use Spatie\LaravelOneTimePasswords\Models\Concerns\HasOneTimePasswords;
 use Spatie\LaravelOneTimePasswords\Rules\OneTimePasswordRule;
-use \Illuminate\Support\Facades\RateLimiter;
-
 
 class OneTimePasswordComponent extends Component
 {
@@ -43,7 +42,6 @@ class OneTimePasswordComponent extends Component
         ]);
 
         $user = $this->findUser();
-
 
         if (! $user) {
             $this->addError('email', 'We could not find a user with that email address.');

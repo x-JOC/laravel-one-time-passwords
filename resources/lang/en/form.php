@@ -9,7 +9,7 @@ return [
     'password_label' => 'Login code',
     'submit_login_code_button' => 'Submit one-time login code',
 
-    'resend_code' => 'Resend code'
+    'resend_code' => 'Resend code',
 ];
 
 /*
