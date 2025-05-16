@@ -14,6 +14,8 @@ beforeEach(function () {
 
     config()->set('one-time-passwords.redirect_successful_authentication_to', '/home');
 
+    $this->user = User::factory()->create(['email' => 'test@example.com']);
+
     Notification::fake();
 });
 
@@ -23,12 +25,10 @@ it('shows the email form by default', function () {
 });
 
 it('shows the one-time password form when email is provided during mount', function () {
-    $user = User::factory()->create(['email' => 'test@example.com']);
-
-    Livewire::test(OneTimePasswordComponent::class, ['email' => 'test@example.com'])
+    Livewire::test(OneTimePasswordComponent::class, ['email' => $this->user->email])
         ->assertSet('displayingEmailForm', false)
         ->assertSet('isFixedEmail', true)
-        ->assertSet('email', 'test@example.com')
+        ->assertSet('email', $this->user->email)
         ->assertViewIs('one-time-passwords::livewire.one-time-password-form');
 });
 
@@ -59,43 +59,36 @@ it('shows error when user not found', function () {
 });
 
 it('sends one-time password when email is submitted', function () {
-    $user = User::factory()->create(['email' => 'test@example.com']);
-
     Livewire::test(OneTimePasswordComponent::class)
-        ->set('email', 'test@example.com')
+        ->set('email', $this->user->email)
         ->call('submitEmail')
         ->assertSet('displayingEmailForm', false)
         ->assertViewIs('one-time-passwords::livewire.one-time-password-form');
 
-    Notification::assertSentTo($user, OneTimePasswordNotification::class);
+    Notification::assertSentTo($this->user, OneTimePasswordNotification::class);
 });
 
 it('can resend code', function () {
-    $user = User::factory()->create(['email' => 'test@example.com']);
-
     Livewire::test(OneTimePasswordComponent::class)
-        ->set('email', 'test@example.com')
+        ->set('email', $this->user->email)
         ->set('displayingEmailForm', false)
         ->call('resendCode');
 
-    Notification::assertSentTo($user, OneTimePasswordNotification::class);
+    Notification::assertSentTo($this->user, OneTimePasswordNotification::class);
 });
 
 it('validates one-time password is required', function () {
-    $user = User::factory()->create(['email' => 'test@example.com']);
 
     Livewire::test(OneTimePasswordComponent::class)
-        ->set('email', 'test@example.com')
+        ->set('email', $this->user->email)
         ->set('displayingEmailForm', false)
         ->call('submitOneTimePassword')
         ->assertHasErrors(['oneTimePassword' => 'required']);
 });
 
 it('validates one-time password with custom rule', function () {
-    $user = User::factory()->create(['email' => 'test@example.com']);
-
     $component = Livewire::test(OneTimePasswordComponent::class)
-        ->set('email', 'test@example.com')
+        ->set('email', $this->user->email)
         ->set('displayingEmailForm', false)
         ->set('oneTimePassword', 'invalid-otp');
 
@@ -104,12 +97,10 @@ it('validates one-time password with custom rule', function () {
 });
 
 it('authenticates user when valid one-time password is provided', function () {
-    $user = User::factory()->create(['email' => 'test@example.com']);
-
-    $oneTimePassword = $user->createOneTimePassword();
+    $oneTimePassword = $this->user->createOneTimePassword();
 
     Livewire::test(OneTimePasswordComponent::class)
-        ->set('email', 'test@example.com')
+        ->set('email', $this->user->email)
         ->set('displayingEmailForm', false)
         ->set('oneTimePassword', $oneTimePassword->password)
         ->call('submitOneTimePassword')
