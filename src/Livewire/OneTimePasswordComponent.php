@@ -129,7 +129,6 @@ class OneTimePasswordComponent extends Component
 
     public function showViewName(): string
     {
-
         return $this->displayingEmailForm
             ? 'email-form'
             : 'one-time-password-form';
