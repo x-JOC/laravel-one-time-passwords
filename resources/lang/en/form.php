@@ -12,7 +12,6 @@ return [
     'resend_code' => 'Resend code'
 ];
 
-
 /*
 'title' => 'One time login code',
         'password_label' => 'Enter your login code',
