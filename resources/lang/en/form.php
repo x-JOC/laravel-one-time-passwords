@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'email_form_title' => 'Login with One-Time Password',
+    'email_form_title' => 'Login with One-Time Login Code',
     'email_label' => 'E-mail',
     'send_login_code_button' => 'Send one-time login code',
 
