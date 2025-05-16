@@ -8,6 +8,8 @@ return [
     'one_time_password_form_title' => 'Enter your login code',
     'password_label' => 'Login code',
     'submit_login_code_button' => 'Submit one-time login code',
+
+    'resend_code' => 'Resend code'
 ];
 
 

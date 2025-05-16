@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 use Livewire\Component;
 use Spatie\LaravelOneTimePasswords\Models\Concerns\HasOneTimePasswords;
 use Spatie\LaravelOneTimePasswords\Rules\OneTimePasswordRule;
+use \Illuminate\Support\Facades\RateLimiter;
+
 
 class OneTimePasswordComponent extends Component
 {
@@ -19,19 +21,22 @@ class OneTimePasswordComponent extends Component
 
     public string $redirectTo = '/';
 
+    public bool $displayingEmailForm = true;
+
     public function mount(?string $redirectTo = null, ?string $email = ''): void
     {
         $this->email = $email;
 
         if ($this->email) {
             $this->isFixedEmail = true;
+            $this->displayingEmailForm = false;
         }
 
         $this->redirectTo = $redirectTo
             ?? config('one-time-passwords.redirect_successful_authentication_to');
     }
 
-    public function submitEmail()
+    public function submitEmail(): void
     {
         $this->validate([
             'email' => 'required|email',
@@ -39,15 +44,54 @@ class OneTimePasswordComponent extends Component
 
         $user = $this->findUser();
 
-        if (! $user) {
-            $this->email = null;
 
+        if (! $user) {
             $this->addError('email', 'We could not find a user with that email address.');
 
             return;
         }
 
+        $this->sendCode();
+
+        $this->displayingEmailForm = false;
+    }
+
+    public function resendCode(): void
+    {
+        $this->sendCode();
+    }
+
+    protected function sendCode(): void
+    {
+        $user = $this->findUser();
+
+        if ($this->rateLimitHit()) {
+            return;
+        }
+
+        $this->displayingEmailForm = false;
+
         $user->sendOneTimePassword();
+    }
+
+    protected function rateLimitHit(): bool
+    {
+        $rateLimitKey = "one-time-password-component-send-code.{$this->email}";
+
+        if (RateLimiter::tooManyAttempts($rateLimitKey, 10)) {
+            return true;
+        }
+
+        RateLimiter::hit($rateLimitKey, 60); // 60 seconds decay time
+
+        return false;
+    }
+
+    public function displayEmailForm(): void
+    {
+        $this->email = null;
+
+        $this->displayingEmailForm = true;
     }
 
     public function submitOneTimePassword()
@@ -75,7 +119,6 @@ class OneTimePasswordComponent extends Component
     {
         $authenticatableModel = config('auth.providers.users.model');
 
-        /** TODO: use real authenticatable */
         return $authenticatableModel::firstWhere('email', $this->email);
     }
 
@@ -87,8 +130,8 @@ class OneTimePasswordComponent extends Component
     public function showViewName(): string
     {
 
-        return $this->email
-            ? 'one-time-password-form'
-            : 'email-form';
+        return $this->displayingEmailForm
+            ? 'email-form'
+            : 'one-time-password-form';
     }
 }

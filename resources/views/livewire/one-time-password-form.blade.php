@@ -1,7 +1,6 @@
-<div>
+<div x-data="{ resendText: '{{ __('one-time-passwords::form.resend_code') }}', isResending: false }">
     <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
         {{ __('one-time-passwords::form.one_time_password_form_title') }}
-
     </h2>
     <form wire:submit="submitOneTimePassword" class="mt-6 space-y-6">
         <div>
@@ -15,7 +14,7 @@
                 wire:model="oneTimePassword"
             >
             @error('oneTimePassword')
-                <p class="mt-2 text-sm text-red-600 dark:text-red-400 space-y-1">{{ $message }}</p>
+            <p class="mt-2 text-sm text-red-600 dark:text-red-400 space-y-1">{{ $message }}</p>
             @enderror
         </div>
 
@@ -24,5 +23,23 @@
                 {{ __('one-time-passwords::form.submit_login_code_button') }}
             </button>
         </div>
+
+        <button
+            type="button"
+            @click="
+                if (!isResending) {
+                    isResending = true;
+                    resendText = 'Code sent';
+                    $wire.resendCode();
+                    setTimeout(() => {
+                        resendText = '{{ __('one-time-passwords::form.resend_code') }}';
+                        isResending = false;
+                    }, 2000);
+                }
+            "
+            class="text-sm text-gray-600 dark:text-gray-400 cursor-pointer bg-transparent border-0 p-0 m-0 text-left transition-opacity duration-300"
+            :class="{ 'underline': !isResending }"
+            x-text="resendText"
+        ></button>
     </form>
 </div>
