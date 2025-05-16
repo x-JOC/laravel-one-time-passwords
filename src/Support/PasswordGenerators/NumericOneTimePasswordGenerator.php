@@ -13,11 +13,11 @@ class NumericOneTimePasswordGenerator implements OneTimePasswordGenerator
         return $this;
     }
 
-    public function generate(): string|int
+    public function generate(): string
     {
         $min = 10 ** ($this->numberOfDigits - 1);
         $max = (10 ** $this->numberOfDigits) - 1;
 
-        return rand($min, $max);
+        return (string) random_int($min, $max);
     }
 }
