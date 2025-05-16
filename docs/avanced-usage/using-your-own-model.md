@@ -14,7 +14,7 @@ namespace App\Models;
 
 use Spatie\LaravelOneTimePasswords\Models\OneTimePassword as BaseOneTimePassword;
 
-class OneTimePassword extends BaseOneTimePassword
+class CustomOneTimePassword extends BaseOneTimePassword
 {
     // Add any custom properties or methods here
 }
@@ -31,7 +31,7 @@ return [
     // ...
     'models' => [
         // The model used to store passkeys
-        'model' => App\Models\OneTimePassword::class,
+        'model' => App\Models\CustomOneTimePassword::class,
     ],
 ];
 ```
