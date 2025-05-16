@@ -120,7 +120,7 @@ class OneTimePasswordComponent extends Component
         return $authenticatableModel::firstWhere('email', $this->email);
     }
 
-    public function authenticate(Authenticatable $user)
+    public function authenticate(Authenticatable $user): void
     {
         auth()->login($user);
     }

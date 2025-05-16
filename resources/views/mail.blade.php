@@ -1,9 +1,9 @@
 <x-mail::message>
-    # {{ __('one-time-passwords::notifications.email.heading') }}
+# {{ __('one-time-passwords::notifications.title') }}
 
-    {{ __('one-time-passwords::notifications.email.intro') }}
+{{ __('one-time-passwords::notifications.intro', ['url' => config('app.url')]) }}
 
-    *{{ $oneTimePassword->password }}*
+**{{ $oneTimePassword->password }}**
 
-    {{ __('one-time-passwords::notifications.email.warning') }}
+{{ __('one-time-passwords::notifications.outro') }}
 </x-mail::message>
