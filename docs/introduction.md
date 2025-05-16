@@ -6,8 +6,14 @@ weight: 1
 Using this package, you can securely create and consume one-time passwords. By default, a one-time password is a number
 of six digits long.
 
-The package provides easy-to-use methods to build the one-time password login flow you want. It also provides a Livewire
+The package ships with a Livewire
 component to allow users to login using a one-time password.
+
+![image](/docs/laravel-one-time-passwords/v1/images/form-email.png)
+
+![image](/docs/laravel-one-time-passwords/v1/images/form-code.png)
+
+Alternatively, you can to build the one-time password login flow you want with the easy-to-use methods the package provides.
 
 Here's how you would send a one-time password to a user
 
@@ -16,6 +22,10 @@ Here's how you would send a one-time password to a user
 
 $user->sendOneTimePassword();
 ```
+
+This is what the notification mail looks like:
+
+![image](/docs/laravel-one-time-passwords/v1/images/notification.png)
 
 Here's how you would try to log in a user using a one-time password.
 

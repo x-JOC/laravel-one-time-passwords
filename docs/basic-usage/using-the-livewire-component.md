@@ -11,11 +11,11 @@ The package provides a Livewire component that can create and consume one-time p
 
 It will render a form asking for the user's email address and a button to send the one-time password. After the user submits the form, it will send a one-time password to the provided email address. 
 
-TODO: insert image
+![image](/docs/laravel-one-time-passwords/v1/images/form-email.png)
 
 The component will then display a form asking for the one-time password and a button to verify it. After the user submits the form, it will verify the one-time password and log the user in if the verification is successful.
 
-TODO: insert image
+![image](/docs/laravel-one-time-passwords/v1/images/form-code.png)
 
 ### Only consuming a one-time password
 
