@@ -36,7 +36,6 @@ class TestCase extends Orchestra
         config()->set('database.default', 'testing');
         config()->set('app.key', Encrypter::generateKey(config('app.cipher')));
 
-
         Schema::dropAllTables();
 
         $migration = include __DIR__.'/../../database/migrations/create_one_time_passwords_table.php.stub';
