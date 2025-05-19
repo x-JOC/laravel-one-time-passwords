@@ -3,11 +3,14 @@
 namespace Spatie\LaravelOneTimePasswords\Models;
 
 use Carbon\Carbon;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\MassPrunable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Str;
+use Spatie\LaravelOneTimePasswords\Actions\CreateOneTimePasswordAction;
+use Spatie\LaravelOneTimePasswords\Support\Config;
 
 class OneTimePassword extends Model
 {
@@ -28,12 +31,11 @@ class OneTimePassword extends Model
         return $this->morphTo();
     }
 
-    public static function generateFor(Model $model, int $expiresInMinutes = 10): self
+    public static function generateFor(Model&Authenticatable $model, int $expiresInMinutes = 10): self
     {
-        return $model->oneTimePasswords()->create([
-            'password' => Str::random(6),
-            'expires_at' => Carbon::now()->addMinutes($expiresInMinutes),
-        ]);
+        $action = Config::getAction('create_one_time_password', CreateOneTimePasswordAction::class);
+
+        $action->execute($model, $expiresInMinutes);
     }
 
     public function isExpired(): bool
