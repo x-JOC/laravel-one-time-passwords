@@ -2,13 +2,11 @@
 
 namespace Spatie\LaravelOneTimePasswords\Models;
 
-use Carbon\Carbon;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\MassPrunable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
-use Illuminate\Support\Str;
 use Spatie\LaravelOneTimePasswords\Actions\CreateOneTimePasswordAction;
 use Spatie\LaravelOneTimePasswords\Support\Config;
 
