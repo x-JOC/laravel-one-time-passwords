@@ -34,7 +34,7 @@ class CustomOneTimePasswordNotification extends OneTimePasswordNotification
         // $this->oneTimePassword is an instance of the Spatie\OneTimePasswords\OneTimePassword model
     
         return (new VonageMessage)
-            ->content("Your one time login code is: {$this->oneTimePassword->password}");
+            ->content("Your one-time login code is: {$this->oneTimePassword->password}");
     }
 }
 ```
