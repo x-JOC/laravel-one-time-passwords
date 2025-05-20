@@ -23,10 +23,10 @@ class ConsumeOneTimePasswordAction
     ) {}
 
     /**
-     * @param  Authenticatable&HasOneTimePasswords&Model  $user
+     * @param  Authenticatable&HasOneTimePasswords  $user
      */
     public function execute(
-        Authenticatable&Model $user,
+        Authenticatable $user,
         string $password,
         Request $request
     ): ConsumeOneTimePasswordResult {
@@ -37,10 +37,10 @@ class ConsumeOneTimePasswordAction
     }
 
     /**
-     * @param  Authenticatable&Model&HasOneTimePasswords  $user
+     * @param  Authenticatable&HasOneTimePasswords  $user
      */
     protected function consumeOneTimePassword(
-        Model&Authenticatable $user,
+        Authenticatable $user,
         string $password,
         Request $request
     ): ConsumeOneTimePasswordResult {
@@ -118,7 +118,7 @@ class ConsumeOneTimePasswordAction
         return $validationResult;
     }
 
-    protected function allowedByRateLimit(Authenticatable&Model $user): bool
+    protected function allowedByRateLimit(Authenticatable $user): bool
     {
         return RateLimiter::attempt(
             "consume-one-time-password-attempt:{$user->getKey()}",
