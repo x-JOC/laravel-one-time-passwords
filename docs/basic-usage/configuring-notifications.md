@@ -3,7 +3,11 @@ title: Configuring notifications
 weight: 3
 ---
 
-The package uses the included `OneTimePasswordNotification` notification to mail one-time passwords to users. You can extend this notification to customize the content and appearance of the email. By extending the notification, you can also send the one-time password via other channels, such as SMS or Slack.
+The package uses the included `OneTimePasswordNotification` notification to mail one-time passwords to users. 
+
+By extending the notification, you can send the one-time password via other channels, such as SMS or Slack.
+
+You can extend this notification to customize the content and appearance of the email. 
 
 ## Adding support for additional channels
 
