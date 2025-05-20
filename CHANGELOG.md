@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-one-time-passwords` will be documented in this file.
 
+## 0.0.4 - 2025-05-20
+
+### What's Changed
+
+* docs: clarify return type in gatherProperties PHPDoc by @Ayoub-Mabrouk in https://github.com/spatie/laravel-one-time-passwords/pull/5
+
+**Full Changelog**: https://github.com/spatie/laravel-one-time-passwords/compare/0.0.3...0.0.4
+
 ## 0.0.3 - 2025-05-17
 
 ### What's Changed
