@@ -3,12 +3,12 @@
 namespace Spatie\OneTimePasswords;
 
 use Livewire\Livewire;
+use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Spatie\OneTimePasswords\Livewire\OneTimePasswordComponent;
 use Spatie\OneTimePasswords\Support\Config;
 use Spatie\OneTimePasswords\Support\OriginInspector\OriginEnforcer;
 use Spatie\OneTimePasswords\Support\PasswordGenerators\OneTimePasswordGenerator;
-use Spatie\LaravelPackageTools\Package;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 class OneTimePasswordsServiceProvider extends PackageServiceProvider
 {
