@@ -64,6 +64,9 @@ The package tries to make one-time passwords as secure as can be by:
 
 All behavior is implemented in action classes that can be modified to your liking.
 
+## Documentation
+
+All documentation is available [on our documentation site](https://spatie.be/docs/laravel-one-time-passwords).
 
 ## Support us
 
@@ -73,46 +76,6 @@ We invest a lot of resources into creating [best in class open source packages](
 
 We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
 
-## Installation
-
-You can install the package via composer:
-
-```bash
-composer require spatie/laravel-one-time-passwords
-```
-
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --tag="laravel-one-time-passwords-migrations"
-php artisan migrate
-```
-
-You can publish the config file with:
-
-```bash
-php artisan vendor:publish --tag="laravel-one-time-passwords-config"
-```
-
-This is the contents of the published config file:
-
-```php
-return [
-];
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="laravel-one-time-passwords-views"
-```
-
-## Usage
-
-```php
-$OneTimePasswords = new Spatie\OneTimePasswords();
-echo $OneTimePasswords->echoPhrase('Hello, Spatie!');
-```
 
 ## Testing
 
