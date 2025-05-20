@@ -18,7 +18,7 @@ beforeEach(function () {
 it('can render the notification', function () {
     $notification = new OneTimePasswordNotification($this->oneTimePassword);
 
-    $renderedMail = $notification->toMail(new stdClass())->render();
+    $renderedMail = $notification->toMail(new stdClass)->render();
 
     expect($renderedMail)->toBeInstanceOf(HtmlString::class);
     expect($renderedMail->toHtml())->toContain($this->oneTimePassword->password);
