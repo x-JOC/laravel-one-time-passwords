@@ -1,11 +1,11 @@
 <?php
 
-namespace Spatie\LaravelOneTimePasswords\Notifications;
+namespace Spatie\OneTimePasswords\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use Spatie\LaravelOneTimePasswords\Models\OneTimePassword;
+use Spatie\OneTimePasswords\Models\OneTimePassword;
 
 class OneTimePasswordNotification extends Notification
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\LaravelOneTimePasswords\Actions;
+namespace Spatie\OneTimePasswords\Actions;
 
 use Carbon\CarbonInterval;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -9,12 +9,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Timebox;
-use Spatie\LaravelOneTimePasswords\Enums\ConsumeOneTimePasswordResult;
-use Spatie\LaravelOneTimePasswords\Events\FailedToConsumeOneTimePassword;
-use Spatie\LaravelOneTimePasswords\Events\OneTimePasswordSuccessfullyConsumed;
-use Spatie\LaravelOneTimePasswords\Models\Concerns\HasOneTimePasswords;
-use Spatie\LaravelOneTimePasswords\Models\OneTimePassword;
-use Spatie\LaravelOneTimePasswords\Support\OriginInspector\OriginEnforcer;
+use Spatie\OneTimePasswords\Enums\ConsumeOneTimePasswordResult;
+use Spatie\OneTimePasswords\Events\FailedToConsumeOneTimePassword;
+use Spatie\OneTimePasswords\Events\OneTimePasswordSuccessfullyConsumed;
+use Spatie\OneTimePasswords\Models\Concerns\HasOneTimePasswords;
+use Spatie\OneTimePasswords\Models\OneTimePassword;
+use Spatie\OneTimePasswords\Support\OriginInspector\OriginEnforcer;
 
 class ConsumeOneTimePasswordAction
 {

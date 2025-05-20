@@ -25,7 +25,7 @@ You should let your `User` model use the `HasOneTimePasswords` trait.
 ```php
 namespace App\Models;
 
-use Spatie\LaravelOneTimePasswords\Models\Concerns\HasOneTimePasswords;
+use Spatie\OneTimePasswords\Models\Concerns\HasOneTimePasswords;
 
 class User
 {
@@ -44,7 +44,7 @@ To delete expired one-time password, you can add the `model:prune` command to yo
 Here's an example where expired one-time passwords are deleted daily.
 
 ```php
-use Spatie\LaravelOneTimePasswords\Models\OneTimePassword;
+use Spatie\OneTimePasswords\Models\OneTimePassword;
 
 Schedule::command('model:prune', [
     '--model' => [OneTimePassword::class],
@@ -85,14 +85,14 @@ return [
      * the platform it was requested on.
      *
      * If you do not wish to enforce this, set this value to
-     * Spatie\LaravelOneTimePasswords\Support\OriginInspector\DoNotEnforceOrigin
+     * Spatie\OneTimePasswords\Support\OriginInspector\DoNotEnforceOrigin
      */
-    'origin_enforcer' => Spatie\LaravelOneTimePasswords\Support\OriginInspector\DefaultOriginEnforcer::class,
+    'origin_enforcer' => Spatie\OneTimePasswords\Support\OriginInspector\DefaultOriginEnforcer::class,
 
     /*
      * This class generates a random password
      */
-    'password_generator' => Spatie\LaravelOneTimePasswords\Support\PasswordGenerators\NumericOneTimePasswordGenerator::class,
+    'password_generator' => Spatie\OneTimePasswords\Support\PasswordGenerators\NumericOneTimePasswordGenerator::class,
 
     /*
      * By default, the password generator will create a password with
@@ -114,12 +114,12 @@ return [
     /*
      * The model uses to store one-time passwords
      */
-    'model' => Spatie\LaravelOneTimePasswords\Models\OneTimePassword::class,
+    'model' => Spatie\OneTimePasswords\Models\OneTimePassword::class,
 
     /*
      * The notification used to send a one-time password to a user
      */
-    'notification' => Spatie\LaravelOneTimePasswords\Notifications\OneTimePasswordNotification::class,
+    'notification' => Spatie\OneTimePasswords\Notifications\OneTimePasswordNotification::class,
 
     /*
      * These class are responsible for performing core tasks regarding one-time passwords.
@@ -127,8 +127,8 @@ return [
      * by specifying your custom class name here.
      */
     'actions' => [
-        'create_one_time_password' => Spatie\LaravelOneTimePasswords\Actions\CreateOneTimePasswordAction::class,
-        'consume_one_time_password' => Spatie\LaravelOneTimePasswords\Actions\ConsumeOneTimePasswordAction::class,
+        'create_one_time_password' => Spatie\OneTimePasswords\Actions\CreateOneTimePasswordAction::class,
+        'consume_one_time_password' => Spatie\OneTimePasswords\Actions\ConsumeOneTimePasswordAction::class,
     ],
 ];
 ```

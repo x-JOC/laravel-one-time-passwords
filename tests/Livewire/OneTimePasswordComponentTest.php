@@ -3,9 +3,9 @@
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\RateLimiter;
 use Livewire\Livewire;
-use Spatie\LaravelOneTimePasswords\Livewire\OneTimePasswordComponent;
-use Spatie\LaravelOneTimePasswords\Notifications\OneTimePasswordNotification;
-use Spatie\LaravelOneTimePasswords\Tests\TestSupport\Models\User;
+use Spatie\OneTimePasswords\Livewire\OneTimePasswordComponent;
+use Spatie\OneTimePasswords\Notifications\OneTimePasswordNotification;
+use Spatie\OneTimePasswords\Tests\TestSupport\Models\User;
 
 beforeEach(function () {
     RateLimiter::clear('one-time-password-component-send-code.test@example.com');

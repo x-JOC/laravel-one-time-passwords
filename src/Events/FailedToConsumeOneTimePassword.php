@@ -1,9 +1,9 @@
 <?php
 
-namespace Spatie\LaravelOneTimePasswords\Events;
+namespace Spatie\OneTimePasswords\Events;
 
 use Illuminate\Contracts\Auth\Authenticatable;
-use Spatie\LaravelOneTimePasswords\Enums\ConsumeOneTimePasswordResult;
+use Spatie\OneTimePasswords\Enums\ConsumeOneTimePasswordResult;
 
 readonly class FailedToConsumeOneTimePassword
 {

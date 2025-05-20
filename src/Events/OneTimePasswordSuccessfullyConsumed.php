@@ -1,9 +1,9 @@
 <?php
 
-namespace Spatie\LaravelOneTimePasswords\Events;
+namespace Spatie\OneTimePasswords\Events;
 
 use Illuminate\Contracts\Auth\Authenticatable;
-use Spatie\LaravelOneTimePasswords\Models\OneTimePassword;
+use Spatie\OneTimePasswords\Models\OneTimePassword;
 
 readonly class OneTimePasswordSuccessfullyConsumed
 {

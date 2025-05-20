@@ -1,6 +1,6 @@
 <?php
 
-use Spatie\LaravelOneTimePasswords\Tests\TestSupport\TestCase;
+use Spatie\OneTimePasswords\Tests\TestSupport\TestCase;
 
 uses(TestCase::class)->in(__DIR__);
 

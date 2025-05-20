@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\LaravelOneTimePasswords\Exceptions;
+namespace Spatie\OneTimePasswords\Exceptions;
 
 use Exception;
 

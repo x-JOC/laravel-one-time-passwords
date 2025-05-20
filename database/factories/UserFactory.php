@@ -1,13 +1,13 @@
 <?php
 
-namespace Spatie\LaravelOneTimePasswords\Database\Factories;
+namespace Spatie\OneTimePasswords\Database\Factories;
 
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use Spatie\LaravelOneTimePasswords\Tests\TestSupport\Models\User;
+use Spatie\OneTimePasswords\Tests\TestSupport\Models\User;
 
 /**
  * @extends Factory<User>

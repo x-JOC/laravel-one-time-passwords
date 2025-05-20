@@ -1,9 +1,9 @@
 <?php
 
-namespace Spatie\LaravelOneTimePasswords\Support\OriginInspector;
+namespace Spatie\OneTimePasswords\Support\OriginInspector;
 
 use Illuminate\Http\Request;
-use Spatie\LaravelOneTimePasswords\Models\OneTimePassword;
+use Spatie\OneTimePasswords\Models\OneTimePassword;
 
 class DefaultOriginEnforcer implements OriginEnforcer
 {

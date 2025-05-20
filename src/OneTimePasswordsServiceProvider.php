@@ -1,12 +1,12 @@
 <?php
 
-namespace Spatie\LaravelOneTimePasswords;
+namespace Spatie\OneTimePasswords;
 
 use Livewire\Livewire;
-use Spatie\LaravelOneTimePasswords\Livewire\OneTimePasswordComponent;
-use Spatie\LaravelOneTimePasswords\Support\Config;
-use Spatie\LaravelOneTimePasswords\Support\OriginInspector\OriginEnforcer;
-use Spatie\LaravelOneTimePasswords\Support\PasswordGenerators\OneTimePasswordGenerator;
+use Spatie\OneTimePasswords\Livewire\OneTimePasswordComponent;
+use Spatie\OneTimePasswords\Support\Config;
+use Spatie\OneTimePasswords\Support\OriginInspector\OriginEnforcer;
+use Spatie\OneTimePasswords\Support\PasswordGenerators\OneTimePasswordGenerator;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 

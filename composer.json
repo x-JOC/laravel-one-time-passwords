@@ -33,13 +33,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Spatie\\LaravelOneTimePasswords\\": "src/",
-            "Spatie\\LaravelOneTimePasswords\\Database\\Factories\\": "database/factories/"
+            "Spatie\\OneTimePasswords\\": "src/",
+            "Spatie\\OneTimePasswords\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Spatie\\LaravelOneTimePasswords\\Tests\\": "tests/",
+            "Spatie\\OneTimePasswords\\Tests\\": "tests/",
             "Workbench\\App\\": "workbench/app/"
         }
     },
@@ -61,7 +61,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Spatie\\LaravelOneTimePasswords\\OneTimePasswordsServiceProvider"
+                "Spatie\\OneTimePasswords\\OneTimePasswordsServiceProvider"
             ]
         }
     },

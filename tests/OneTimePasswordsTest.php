@@ -1,8 +1,8 @@
 <?php
 
-use Spatie\LaravelOneTimePasswords\Enums\ConsumeOneTimePasswordResult;
-use Spatie\LaravelOneTimePasswords\Support\OriginInspector\DoNotEnforceOrigin;
-use Spatie\LaravelOneTimePasswords\Tests\TestSupport\Models\User;
+use Spatie\OneTimePasswords\Enums\ConsumeOneTimePasswordResult;
+use Spatie\OneTimePasswords\Support\OriginInspector\DoNotEnforceOrigin;
+use Spatie\OneTimePasswords\Tests\TestSupport\Models\User;
 
 beforeEach(function () {
     /** @var $user User */

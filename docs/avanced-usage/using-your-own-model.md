@@ -7,12 +7,12 @@ By using a custom model, you can change low-level behaviour of the package, such
 
 ## Step 1: Create a custom model
 
-Create a new model that extends the `Spatie\LaravelOneTimePasswords\Models\OneTimePassword` model.
+Create a new model that extends the `Spatie\OneTimePasswords\Models\OneTimePassword` model.
 
 ```php
 namespace App\Models;
 
-use Spatie\LaravelOneTimePasswords\Models\OneTimePassword as BaseOneTimePassword;
+use Spatie\OneTimePasswords\Models\OneTimePassword as BaseOneTimePassword;
 
 class CustomOneTimePassword extends BaseOneTimePassword
 {

@@ -1,14 +1,14 @@
 <?php
 
-namespace Spatie\LaravelOneTimePasswords\Models;
+namespace Spatie\OneTimePasswords\Models;
 
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\MassPrunable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
-use Spatie\LaravelOneTimePasswords\Actions\CreateOneTimePasswordAction;
-use Spatie\LaravelOneTimePasswords\Support\Config;
+use Spatie\OneTimePasswords\Actions\CreateOneTimePasswordAction;
+use Spatie\OneTimePasswords\Support\Config;
 
 class OneTimePassword extends Model
 {

@@ -1,14 +1,14 @@
 <?php
 
-namespace Spatie\LaravelOneTimePasswords\Actions;
+namespace Spatie\OneTimePasswords\Actions;
 
 use Carbon\Carbon;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\Request;
-use Spatie\LaravelOneTimePasswords\Models\Concerns\HasOneTimePasswords;
-use Spatie\LaravelOneTimePasswords\Models\OneTimePassword;
-use Spatie\LaravelOneTimePasswords\Support\OriginInspector\OriginEnforcer;
-use Spatie\LaravelOneTimePasswords\Support\PasswordGenerators\OneTimePasswordGenerator;
+use Spatie\OneTimePasswords\Models\Concerns\HasOneTimePasswords;
+use Spatie\OneTimePasswords\Models\OneTimePassword;
+use Spatie\OneTimePasswords\Support\OriginInspector\OriginEnforcer;
+use Spatie\OneTimePasswords\Support\PasswordGenerators\OneTimePasswordGenerator;
 
 class CreateOneTimePasswordAction
 {

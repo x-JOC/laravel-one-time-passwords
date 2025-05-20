@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\LaravelOneTimePasswords\Support\PasswordGenerators;
+namespace Spatie\OneTimePasswords\Support\PasswordGenerators;
 
 class NumericOneTimePasswordGenerator extends OneTimePasswordGenerator
 {

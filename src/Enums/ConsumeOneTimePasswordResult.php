@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\LaravelOneTimePasswords\Enums;
+namespace Spatie\OneTimePasswords\Enums;
 
 use Illuminate\Support\Str;
 

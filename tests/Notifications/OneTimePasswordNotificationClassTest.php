@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\HtmlString;
-use Spatie\LaravelOneTimePasswords\Models\OneTimePassword;
-use Spatie\LaravelOneTimePasswords\Notifications\OneTimePasswordNotification;
-use Spatie\LaravelOneTimePasswords\Tests\TestSupport\Models\User;
+use Spatie\OneTimePasswords\Models\OneTimePassword;
+use Spatie\OneTimePasswords\Notifications\OneTimePasswordNotification;
+use Spatie\OneTimePasswords\Tests\TestSupport\Models\User;
 
 beforeEach(function () {
 
@@ -18,7 +18,7 @@ beforeEach(function () {
 it('can render the notification', function () {
     $notification = new OneTimePasswordNotification($this->oneTimePassword);
 
-    $renderedMail = $notification->toMail()->render();
+    $renderedMail = $notification->toMail(new stdClass())->render();
 
     expect($renderedMail)->toBeInstanceOf(HtmlString::class);
     expect($renderedMail->toHtml())->toContain($this->oneTimePassword->password);

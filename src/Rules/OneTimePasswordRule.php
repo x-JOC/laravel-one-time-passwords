@@ -1,11 +1,11 @@
 <?php
 
-namespace Spatie\LaravelOneTimePasswords\Rules;
+namespace Spatie\OneTimePasswords\Rules;
 
 use Closure;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Validation\ValidationRule;
-use Spatie\LaravelOneTimePasswords\Actions\ConsumeOneTimePasswordAction;
+use Spatie\OneTimePasswords\Actions\ConsumeOneTimePasswordAction;
 
 class OneTimePasswordRule implements ValidationRule
 {

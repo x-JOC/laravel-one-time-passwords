@@ -1,12 +1,12 @@
 <?php
 
-namespace Spatie\LaravelOneTimePasswords\Support;
+namespace Spatie\OneTimePasswords\Support;
 
-use Spatie\LaravelOneTimePasswords\Exceptions\InvalidActionClass;
-use Spatie\LaravelOneTimePasswords\Exceptions\InvalidConfig;
-use Spatie\LaravelOneTimePasswords\Models\OneTimePassword;
-use Spatie\LaravelOneTimePasswords\Notifications\OneTimePasswordNotification;
-use Spatie\LaravelOneTimePasswords\Support\PasswordGenerators\OneTimePasswordGenerator;
+use Spatie\OneTimePasswords\Exceptions\InvalidActionClass;
+use Spatie\OneTimePasswords\Exceptions\InvalidConfig;
+use Spatie\OneTimePasswords\Models\OneTimePassword;
+use Spatie\OneTimePasswords\Notifications\OneTimePasswordNotification;
+use Spatie\OneTimePasswords\Support\PasswordGenerators\OneTimePasswordGenerator;
 
 class Config
 {

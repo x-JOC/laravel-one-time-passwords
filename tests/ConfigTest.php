@@ -1,9 +1,9 @@
 <?php
 
-use Spatie\LaravelOneTimePasswords\Actions\CreateOneTimePasswordAction;
-use Spatie\LaravelOneTimePasswords\Exceptions\InvalidActionClass;
-use Spatie\LaravelOneTimePasswords\Exceptions\InvalidConfig;
-use Spatie\LaravelOneTimePasswords\Support\Config;
+use Spatie\OneTimePasswords\Actions\CreateOneTimePasswordAction;
+use Spatie\OneTimePasswords\Exceptions\InvalidActionClass;
+use Spatie\OneTimePasswords\Exceptions\InvalidConfig;
+use Spatie\OneTimePasswords\Support\Config;
 
 it('can get the model', function () {
     $model = Config::oneTimePasswordModel();

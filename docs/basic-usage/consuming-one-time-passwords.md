@@ -14,7 +14,7 @@ When implementing your login flow using one-time passwords, you can use the `att
 Here's an example:
 
 ```php
-use Spatie\LaravelOneTimePasswords\Enums\ConsumeOneTimePasswordResult;
+use Spatie\OneTimePasswords\Enums\ConsumeOneTimePasswordResult;
 
 // $result is an instance of the ConsumeOneTimePasswordResult enum.
 $result = $user->attemptLoginUsingOneTimePassword($oneTimePassword, remember: false);

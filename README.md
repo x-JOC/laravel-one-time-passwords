@@ -41,7 +41,7 @@ This is what the notification mail looks like:
 Here's how you would try to log in a user using a one-time password.
 
 ```php
-use Spatie\LaravelOneTimePasswords\Enums\ConsumeOneTimePasswordResult;
+use Spatie\OneTimePasswords\Enums\ConsumeOneTimePasswordResult;
 
 $result = $user->attemptLoginUsingOneTimePassword($oneTimePassword);
 
@@ -110,8 +110,8 @@ php artisan vendor:publish --tag="laravel-one-time-passwords-views"
 ## Usage
 
 ```php
-$laravelOneTimePasswords = new Spatie\LaravelOneTimePasswords();
-echo $laravelOneTimePasswords->echoPhrase('Hello, Spatie!');
+$OneTimePasswords = new Spatie\OneTimePasswords();
+echo $OneTimePasswords->echoPhrase('Hello, Spatie!');
 ```
 
 ## Testing

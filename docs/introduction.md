@@ -30,7 +30,7 @@ This is what the notification mail looks like:
 Here's how you would try to log in a user using a one-time password.
 
 ```php
-use Spatie\LaravelOneTimePasswords\Enums\ConsumeOneTimePasswordResult;
+use Spatie\OneTimePasswords\Enums\ConsumeOneTimePasswordResult;
 
 $result = $user->attemptLoginUsingOneTimePassword($oneTimePassword);
 

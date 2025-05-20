@@ -50,6 +50,6 @@ This will publish the package's views to the `resources/views/vendor/one-time-pa
 
 ### Customizing the component
 
-To have full control over the component, you can create your own Livewire component, and let it extend `Spatie\LaravelOneTimePasswords\Livewire\OneTimePasswordComponent`.
+To have full control over the component, you can create your own Livewire component, and let it extend `Spatie\OneTimePasswords\Livewire\OneTimePasswordComponent`.
 
 This way, you can override any methods or properties you want.

@@ -12,7 +12,7 @@ First, let's create the custom class.
 ```php
 namespace App\Actions;
 
-use Spatie\LaravelOneTimePasswords\Actions\CreateOneTimePasswordAction
+use Spatie\OneTimePasswords\Actions\CreateOneTimePasswordAction
 
 class CustomCreateOneTimePasswordAction extends CreateOneTimePasswordAction
 {
