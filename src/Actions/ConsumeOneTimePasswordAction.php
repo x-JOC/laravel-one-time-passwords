@@ -5,7 +5,6 @@ namespace Spatie\OneTimePasswords\Actions;
 use Carbon\CarbonInterval;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Timebox;
