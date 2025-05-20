@@ -1,6 +1,6 @@
 ---
 title: Consuming one-time passwords
-weight: 3
+weight: 4
 ---
 
 The package provides two methods to consume one-time passwords: `attemptLoginUsingOneTimePassword` and `consumeOneTimePassword`. Both of them will verify the given one-time password and return an instance of the `ConsumeOneTimePasswordResult` enum. If the one-time password is correct, the underlying `OneTimePassword` model for that password will be deleted, ensure that a one-time password can only be used once.

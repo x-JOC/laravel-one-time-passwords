@@ -15,7 +15,7 @@ class OneTimePasswordNotification extends Notification
 
     public function __construct(public OneTimePassword $oneTimePassword) {}
 
-    public function toMail()
+    public function toMail(object $notifiable)
     {
         return (new MailMessage)
             ->subject($this->subject())
@@ -24,7 +24,7 @@ class OneTimePasswordNotification extends Notification
             ]);
     }
 
-    public function via()
+    public function via(object $notifiable): string|array
     {
         return 'mail';
     }

@@ -15,7 +15,8 @@
     
 </div>
 
-Using this package, you can securely create and consume one-time passwords. By default, a one-time password is a number of six digits long.
+Using this package, you can securely create and consume one-time passwords. By default, a one-time password is a number
+of six digits long that will be sent via a mail notification. This notification can be extended so it can be sent via other channels, like SMS.
 
 The package ships with a Livewire component to allow users to login using a one-time password.
 

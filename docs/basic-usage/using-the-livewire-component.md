@@ -1,6 +1,6 @@
 ---
 title: Using the Livewire component
-weight: 4
+weight: 5
 ---
 
 The package provides a Livewire component that can create and consume one-time passwords. Here's how you can use it in your view.

@@ -17,7 +17,6 @@ $user->sendOneTimePassword();
 
 This will create a one-time password and send it to the user's email using the `OneTimePasswordNotification`-notification.
 
-
 ## Only creating a one-time password
 
 To create a one-time password without actually sending it to the user, you can call the `createOneTimePassword` method.
