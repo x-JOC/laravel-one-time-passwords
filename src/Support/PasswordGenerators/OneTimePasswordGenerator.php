@@ -2,7 +2,17 @@
 
 namespace Spatie\LaravelOneTimePasswords\Support\PasswordGenerators;
 
-interface OneTimePasswordGenerator
+
+abstract class OneTimePasswordGenerator
 {
-    public function generate(): string;
+    protected int $numberOfCharacters = 6;
+
+    public function numberOfCharacters(int $numberOfCharacters): self
+    {
+        $this->numberOfCharacters = $numberOfCharacters;
+
+        return $this;
+    }
+
+    abstract public function generate(): string;
 }

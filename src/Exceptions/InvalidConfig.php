@@ -15,4 +15,9 @@ class InvalidConfig extends Exception
     {
         return new self("The configured notification `{$notificationClass}` is not a valid notification class because it does not extend `Spatie\LaravelOneTimePasswords\Notifications\OneTimePasswordNotification`.");
     }
+
+    public static function invalidPasswordGenerator(mixed $generatorClass): self
+    {
+        return new self("The configured password generator `{$generatorClass}` is not a valid password generator class because it does not extend `Spatie\LaravelOneTimePasswords\Support\PasswordGenerators\OneTimePasswordGenerator`.");
+    }
 }

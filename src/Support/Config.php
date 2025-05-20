@@ -6,6 +6,7 @@ use Spatie\LaravelOneTimePasswords\Exceptions\InvalidActionClass;
 use Spatie\LaravelOneTimePasswords\Exceptions\InvalidConfig;
 use Spatie\LaravelOneTimePasswords\Models\OneTimePassword;
 use Spatie\LaravelOneTimePasswords\Notifications\OneTimePasswordNotification;
+use Spatie\LaravelOneTimePasswords\Support\PasswordGenerators\OneTimePasswordGenerator;
 
 class Config
 {
@@ -54,6 +55,17 @@ class Config
         self::ensureValidActionClass($actionName, $actionBaseClass, $actionClass);
 
         return $actionClass;
+    }
+
+    public static function getPasswordGenerator(): OneTimePasswordGenerator
+    {
+        $generatorClass = config('one-time-passwords.password_generator');
+
+        if (! is_a($generatorClass, OneTimePasswordGenerator::class, true)) {
+            throw InvalidConfig::invalidPasswordGenerator($generatorClass);
+        }
+
+        return app($generatorClass);
     }
 
     protected static function ensureValidActionClass(string $actionName, string $actionBaseClass, string $actionClass): void

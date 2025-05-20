@@ -2,21 +2,12 @@
 
 namespace Spatie\LaravelOneTimePasswords\Support\PasswordGenerators;
 
-class NumericOneTimePasswordGenerator implements OneTimePasswordGenerator
+class NumericOneTimePasswordGenerator extends OneTimePasswordGenerator
 {
-    protected int $numberOfDigits = 6;
-
-    public function numberOfDigits(int $numberOfDigits): self
-    {
-        $this->numberOfDigits = $numberOfDigits;
-
-        return $this;
-    }
-
     public function generate(): string
     {
-        $min = 10 ** ($this->numberOfDigits - 1);
-        $max = (10 ** $this->numberOfDigits) - 1;
+        $min = 10 ** ($this->numberOfCharacters - 1);
+        $max = (10 ** $this->numberOfCharacters) - 1;
 
         return (string) random_int($min, $max);
     }
