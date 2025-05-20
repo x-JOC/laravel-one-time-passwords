@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-one-time-passwords` will be documented in this file.
 
+## 1.0.0 - 2025-05-20
+
+- initial release 🚀
+
 ## 0.0.4 - 2025-05-20
 
 ### What's Changed
