@@ -2,7 +2,6 @@
 
 namespace Spatie\LaravelOneTimePasswords\Support\PasswordGenerators;
 
-
 abstract class OneTimePasswordGenerator
 {
     protected int $numberOfCharacters = 6;
