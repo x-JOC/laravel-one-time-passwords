@@ -28,12 +28,13 @@ class CustomOneTimePasswordNotification extends OneTimePasswordNotification
     {
         return ['vonage']);
     }
-    
-    
+
     public function toVonage(object $notifiable): VonageMessage
     {
+        // $this->oneTimePassword is an instance of the Spatie\OneTimePasswords\OneTimePassword model
+    
         return (new VonageMessage)
-            ->content('Your SMS message content');
+            ->content("Your one time login code is: {$this->oneTimePassword->password}");
     }
 }
 ```
