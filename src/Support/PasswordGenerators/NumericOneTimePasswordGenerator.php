@@ -6,9 +6,10 @@ class NumericOneTimePasswordGenerator extends OneTimePasswordGenerator
 {
     public function generate(): string
     {
-        $min = 10 ** ($this->numberOfCharacters - 1);
         $max = (10 ** $this->numberOfCharacters) - 1;
 
-        return (string) random_int($min, $max);
+        $randomNumber = random_int(0, $max);
+
+        return str_pad($randomNumber, $this->numberOfCharacters, '0', STR_PAD_LEFT);
     }
 }
