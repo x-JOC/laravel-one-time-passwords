@@ -16,7 +16,7 @@ class OneTimePassword extends Model
 
     public $guarded = [];
 
-    public function casts()
+    public function casts(): array
     {
         return [
             'origin_properties' => 'array',
@@ -39,14 +39,6 @@ class OneTimePassword extends Model
     public function isExpired(): bool
     {
         return $this->expires_at->isPast();
-    }
-
-    /**
-     * Validate the given password against this one-time password.
-     */
-    public function validate(string $password): bool
-    {
-        return $this->isValid() && $this->password === $password;
     }
 
     public function prunable(): Builder
