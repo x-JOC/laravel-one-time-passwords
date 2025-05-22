@@ -39,7 +39,7 @@ class CustomOneTimePasswordNotification extends OneTimePasswordNotification
 }
 ```
 
-To complete the route, don't for get to add the `routeNotificationForVonage` to your `User` model (as explained in the Laravel docs).
+To complete the SMS routing, don't for get to add the `routeNotificationForVonage` to your `User` model (as explained in the Laravel docs).
 
 ```php
 namespace App\Models;
