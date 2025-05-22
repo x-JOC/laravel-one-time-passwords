@@ -26,7 +26,7 @@ class CustomOneTimePasswordNotification extends OneTimePasswordNotification
 {
     public function via($notifiable): string|array
     {
-        return ['vonage']);
+        return ['vonage'];
     }
 
     public function toVonage(object $notifiable): VonageMessage
