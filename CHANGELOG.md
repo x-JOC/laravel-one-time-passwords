@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-one-time-passwords` will be documented in this file.
 
+## 1.0.3 - 2025-05-22
+
+### What's Changed
+
+* Incorrect migration file name fixed. by @sdebacker in https://github.com/spatie/laravel-one-time-passwords/pull/18
+* Incorrect tag fixed. by @sdebacker in https://github.com/spatie/laravel-one-time-passwords/pull/19
+* french translations by @sdebacker in https://github.com/spatie/laravel-one-time-passwords/pull/20
+
+### New Contributors
+
+* @sdebacker made their first contribution in https://github.com/spatie/laravel-one-time-passwords/pull/18
+
+**Full Changelog**: https://github.com/spatie/laravel-one-time-passwords/compare/1.0.2...1.0.3
+
 ## 1.0.2 - 2025-05-22
 
 ### What's Changed
