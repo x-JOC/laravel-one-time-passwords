@@ -34,6 +34,8 @@ class OneTimePasswordsServiceProvider extends PackageServiceProvider
             return $generator;
         });
 
-        Livewire::component('one-time-password', OneTimePasswordComponent::class);
+        if (class_exists(Livewire::class)) {
+            Livewire::component('one-time-password', OneTimePasswordComponent::class);
+        }
     }
 }
