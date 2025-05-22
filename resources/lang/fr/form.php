@@ -7,7 +7,7 @@ return [
 
     'one_time_password_form_title' => 'Entrez votre code de connexion',
     'password_label' => 'Code de connexion',
-    'submit_login_code_button' => 'Envoyer le code de connexion unique',
+    'submit_login_code_button' => 'Envoyer le code de connexion',
 
     'resend_code' => 'Renvoyer le code',
 ];
