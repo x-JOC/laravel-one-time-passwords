@@ -31,7 +31,7 @@ class OneTimePasswordNotification extends Notification
 
     public function subject(): string
     {
-        return __('one-time-passwords::notifications.one_time_password_subject', [
+        return __('one-time-passwords::notifications.mail_subject', [
             'oneTimePassword' => $this->oneTimePassword->password,
         ]);
     }
